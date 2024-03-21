@@ -13,7 +13,7 @@ ini_set('display_errors','1');
     <head>
         <meta charset="utf-8">
         <title>Client homepage</title>
-        <!-- <link rel="stylesheet" href="ArtiScape.css"> -->
+        <link rel="stylesheet" href="ArtiScape.css">
         <style>                    
             table{
                 border-collapse: collapse; /*No spaces between the cells*/
