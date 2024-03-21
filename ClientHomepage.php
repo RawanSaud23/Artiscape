@@ -109,7 +109,7 @@ ini_set('display_errors','1');
             }*/
             
             $client= mysqli_fetch_assoc($result);
-            $client1Name= $client['firstName'];
+            $client1Name= $client['firstName'];           
             $clintLName= $client['lastName'];
             $clientEmail= $client['emailAddress'];
             ?>
@@ -126,19 +126,56 @@ ini_set('display_errors','1');
             
             <form method="post" action="index.php" id="Category"> <!-- action="ClientHomepage.php" -->
                     <label>Select Category: </label>
-                    <select>
-                        <option>Modern</option>
-                        <option>Coastal</option>
-                        <option>Bohemian</option>
-                        <option>Country</option>
+                    <select name="category">
+                        <?php
+                        //form for filtering designers by category:
+                        $sql_category="SELECT category FROM DesignCategory";
+                        $result_category= mysqli_query($connection, $sql_category);
+                        
+                        while ($row = mysqli_fetch_assoc($result_category)){
+                            echo '<option>' .$row['category'] .'</option>';
+                        }
+                        ?>
                     </select>
                     <button type="button" value="Filter">Filter</button>
                 </form>
-            <?php
-            //form for filtering designers by category:
             
+            <!-- Interior Designers table (Result of the filter) -->
+            <table>
+                    <caption>Interior Designers</caption>
+                    <tr>
+                        <th>Designer</th>
+                        <th>Specialty</th>
+                        <th style="border: none;" id="noBorder"></th> <!--inline style for no border in last th cell-->
+                    </tr>
+                    
+                    <?php
+                    if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+                        
+                        
+                        $sqll="";
+                        $resultt= mysqli_query($sqll, $connection);
+                        
+                        while ($row = mysqli_fetch_assoc($resultt)){
+                            echo '<tr>';
+                            
+                            echo "<td>"  ."<br>" .$row['projectName'] ."</td>"; //missing img :)
+                            echo "<td>";
+                            
+                            foreach ($array as $key => $value) {
+                                 $row['category'] .", "; //how to remove , from the last Specialty??????/
+                            }
+                            echo '</td>';
+                            echo '</tr>';
+                            //The request design consultation link is a code-generated link to the request design 
+                            //consultation page for the corresponding designer.
+                            
+                        }                           
+                    }
+                    ?>
+
+                </table>
             
-            ?>
             
             
            
