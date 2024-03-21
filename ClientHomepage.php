@@ -137,10 +137,10 @@ ini_set('display_errors','1');
                         }
                         ?>
                     </select>
-                    <button type="button" value="Filter">Filter</button>
+                    <button type="submit" value="Filter">Filter</button>
                 </form>
             
-            <!-- Interior Designers table (Result of the filter) -->
+            <!-- Interior Designers table -->
             <table>
                     <caption>Interior Designers</caption>
                     <tr>
@@ -150,33 +150,62 @@ ini_set('display_errors','1');
                     </tr>
                     
                     <?php
+                    //Case 1: no Category selected (default Get)
                     if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+                        $sql_get="SELECT * FROM DesignerSpeciality";//no Speciality slected so,no condition
+                        $result_get= mysqli_query($connection, $sql_get);
                         
-                        
-                        $sqll="";
-                        $resultt= mysqli_query($sqll, $connection);
-                        
-                        while ($row = mysqli_fetch_assoc($resultt)){
-                            echo '<tr>';
+                        while ($row = mysqli_fetch_assoc($result_get)){
+                            //img + brand name
+                            $sql_get2="SELECT * FROM Designer WHERE id='" .$row['designerID'] ."'";
+                            $result_get2= mysqli_query($connection, $sql_get2);
+                            $row2= mysqli_fetch_assoc($result_get2);
+                            echo '<tr><td> <a href="DesignPortoflioProject.php?id=' .$row2['id'] .'"> <br>';
+                            echo $row2['brandName'] .'</a></td>';
                             
-                            echo "<td>"  ."<br>" .$row['projectName'] ."</td>"; //missing img :)
-                            echo "<td>";
+                            //Specialty
+                            $sql_get3="SELECT category FROM DesignCategory WHERE id='" .$row['designCategoryID'] ."'";
+                            $result_get3= mysqli_query($connection, $sql_get3);
+                            $row3= mysqli_fetch_assoc($result_get3);
+                            echo "<td>"  ."<br>" .$row3['category'] ."</td>"; 
                             
-                            foreach ($array as $key => $value) {
-                                 $row['category'] .", "; //how to remove , from the last Specialty??????/
-                            }
-                            echo '</td>';
-                            echo '</tr>';
                             //The request design consultation link is a code-generated link to the request design 
-                            //consultation page for the corresponding designer.
+                            //consultation page for the corresponding designer:
+                            echo "<td> <a href= DesignConsultationRequest.php?DesignerID=" .$row['designerID'] ."> Request Design Consultation ";////Request Design Consultation
+                            echo '</tr>';
+                        }
+
+
+                    //2nd Case when user slect from Category                           
+                    }else if($_SERVER['REQUEST_METHOD'] === 'POST'){
+                        $CatID=$_POST['category'];
+                        $sql_post= "SELECT * FROM DesignerSpeciality WHERE designCategoryID='$CatID'";
+                        $result_post= mysqli_query($connection, $sql_post);
+                        
+                        while ($row = mysqli_fetch_assoc($result_post)){
+                            //img + brand name
+                            $sql_post2="SELECT * FROM Designer WHERE id='" .$row['designerID'] ."'";
+                            $result_post2= mysqli_query($connection, $sql_post2);
+                            $row2= mysqli_fetch_assoc($result_post2);
+                            echo '<tr><td> <a href="DesignPortoflioProject.php?id=' .$row2['id'] .'"> <br>';
+                            echo $row2['brandName'] .'</a></td>';//there is somthing wrong
                             
-                        }                           
+                            //Specialty
+                            $sql_post3="SELECT category FROM DesignCategory WHERE id='" .$row['designCategoryID'] ."'";
+                            $result_post3= mysqli_query($connection, $sql_post3);
+                            $row3= mysqli_fetch_assoc($result_post3);
+                            echo "<td>"  ."<br>" .$row3['category'] ."</td>"; 
+                            
+                            //The request design consultation link is a code-generated link to the request design 
+                            //consultation page for the corresponding designer:
+                            echo "<td> <a href= DesignConsultationRequest.php?DesignerID=" .$row['designerID'] ."> Request Design Consultation ";////Request Design Consultation
+                            echo '</tr>';
+                        }
+                        
                     }
                     ?>
 
-                </table>
-            
-            
+                </table>            
             
            
             <?php
@@ -195,15 +224,7 @@ ini_set('display_errors','1');
             <th>Consultation</th>
           </tr>';
     
-            $sql_7col="SELECT d.brandName, d.logoImgFileName, rt.type, dcr.roomWidth, dcr.roomLength,
-        dc.category, dcr.colorPreferences, dcr.date, rs.status, dc.consultation, dc.consultationImgFileName
-        FROM DesignConsultationRequest dcr
-        INNER JOIN Designer d ON dcr.designerID = d.id
-        INNER JOIN DesignCategory dc ON dcr.designCategoryID = dc.id
-        INNER JOIN RoomType rt ON dcr.roomTypeID = rt.id
-        INNER JOIN RequestStatus rs ON dcr.statusID = rs.id
-        LEFT JOIN DesignConsultation dc ON dcr.id = dc.requestID
-        WHERE dcr.clientID = '1'"; //='$clientID'
+            $sql_7col=""; //='$clientID'
             $result_7col = mysqli_query($connection, $sql_7col);
             
             while ($row = mysqli_fetch_assoc($result)) {
