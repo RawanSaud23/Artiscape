@@ -98,15 +98,9 @@ ini_set('display_errors','1');
             }
             
             //request client info (for the welcoming card): 
-            //$sql="SELECT * FROM client WHERE id='$ClientID'";
+            //$sql="SELECT * FROM client WHERE id='$ClientID'"; MUST CHANGE
             $sql="SELECT * FROM client WHERE id='1'";
             $result= mysqli_query($connection, $sql);
-            
-            /*if($row= mysqli_fetch_assoc($result)){
-            $client1Name= $row['firstName'];
-            $clintLName= $row['lastName'];
-            $clientEmail= $row['emailAddress'];    
-            }*/
             
             $client= mysqli_fetch_assoc($result);
             $client1Name= $client['firstName'];           
@@ -120,24 +114,24 @@ ini_set('display_errors','1');
 
             <div id="ClientInfo">
                 <p>Name: <?php echo $client1Name .' ' .$clintLName; ?></p>
-                <p>email: <?php echo $clientEmail; ?> </p>
+                <p>email: <?php echo $clientEmail; ?> </p> <!-- MISSING style -->
             </div>
             <br>
             
-            <form method="post" action="index.php" id="Category" name="category"> <!-- action="ClientHomepage.php" -->
+            <form method="post" action="index.php" id="Category"> <!-- action="ClientHomepage.php" -->
                     <label>Select Category: </label>
                     <select name="category">
                         <?php
                         //form for filtering designers by category:
-                        $sql_category="SELECT category FROM DesignCategory";
+                        $sql_category="SELECT * FROM designcategory";
                         $result_category= mysqli_query($connection, $sql_category);
                         
                         while ($row = mysqli_fetch_assoc($result_category)){
-                            echo '<option>' .$row['category'] .'</option>';
+                            echo "<option value='" .$row['id'] ."'>" .$row['category'] ."</option>";
                         }
                         ?>
                     </select>
-                    <button type="submit" value="Filter">Filter</button>
+                    <button type="submit" value="Filter" id="filt">Filter</button>
                 </form>
             
             <!-- Interior Designers table -->
@@ -187,19 +181,19 @@ ini_set('display_errors','1');
                             $sql_post2="SELECT * FROM Designer WHERE id='" .$row['designerID'] ."'";
                             $result_post2= mysqli_query($connection, $sql_post2);
                             $row2= mysqli_fetch_assoc($result_post2);
-                            echo '<tr><td> <a href="DesignPortoflioProject.php?id=' .$row2['id'] .'"> <br>';
-                            echo $row2['brandName'] .'</a></td>';//there is somthing wrong
+                            echo '<tr><td> <a href="DesignPortoflioProject.php?id=' .$row2['id'] .'"><img src=images/' .$row2['logoImgFileName'] .'\'> <br>';
+                            echo $row2['brandName'] .'</a></td>';//img?????????????
                             
                             //Specialty
                             $sql_post3="SELECT category FROM designcategory WHERE id='" .$row['designCategoryID'] ."'";
                             $result_post3= mysqli_query($connection, $sql_post3);
                             while ($row3= mysqli_fetch_assoc($result_post3)){
-                                 echo "<td>"  ."<br>" .$row3['category'] ."</td>"; 
+                                 echo "<td>" .$row3['category'] ."</td>"; 
                             } 
                             
                             //The request design consultation link is a code-generated link to the request design 
                             //consultation page for the corresponding designer:
-                            echo "<td> <a href= DesignConsultationRequest.php?DesignerID=" .$row['id'] ."> Request Design Consultation </td>";////Request Design Consultation
+                            echo "<td> <a href= RequestConsultation.php?DesignerID=" .$row['designerID'] ."> Request Design Consultation</a> </td>";////Request Design Consultation
                             echo '</tr>';
                         }
                         
@@ -209,56 +203,152 @@ ini_set('display_errors','1');
                 </table>            
             
            
+            
+        <!-- Previous Design Consultation Requests for specific client ID (TABLE): -->
+        <table>
+                <caption style="margin-top: 1em;">Previous Design Consultation Requests</caption>
+                <tr>
+                    <th>Designer</th>
+                    <th>Room</th>
+                    <th>Dimensions</th>
+                    <th>Design Category</th>
+                    <th>Color Preferences</th>
+                    <th>Requests Date</th>
+                    <th>Design Consultation</th>
+                </tr>
+          
             <?php
-            //Previous Design Consultation Requests (TABLE):
-            if (mysqli_num_rows($result) > 0) {
-            echo '<table>';
-            echo '<caption>Consultation Design Requests</caption>';
-            echo '<tr>
-            <th>Designer</th>
-            <th>Room Type</th>
-            <th>Room Dimensions</th>
-            <th>Design Category</th>
-            <th>Color Preferences</th>
-            <th>Date of Request</th>
-            <th>Status</th>
-            <th>Consultation</th>
-          </tr>';
-    
-            $sql_7col=""; //='$clientID'
+            $sql_7col="SELECT * FROM designconsultationrequest WHERE clientID='1'" ; //='$ClientID'
             $result_7col = mysqli_query($connection, $sql_7col);
             
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<tr>';
-                echo '<td><img src="' . $row['logoImgFileName'] . '" alt="Designer Logo">' . $row['brandName'] . '</td>';
-                echo '<td>' . $row['type'] . '</td>';
-                echo '<td>' . $row['roomWidth'] . 'm x ' . $row['roomLength'] . 'm</td>';
-                echo '<td>' . $row['category'] . '</td>';
-                echo '<td>' . $row['colorPreferences'] . '</td>';
-                echo '<td>' . $row['date'] . '</td>';
-                echo '<td>' . $row['status'] . '</td>';
-                echo '<td>';
-
-                // If a consultation vided for a request, then the consultation and its image are shown in the corresponding cell.
-                if ($row['consultation']) {
-                    echo $row['consultation'];
-                    echo '<br>';
-                    echo '<img src="' . $row['consultationImgFileName'] . '" alt="Consultation Image">';
-                }
-                echo '</td>';
-                echo '</tr>';
-            }
-
-            echo '</table>';
-            } else {
-            echo 'No consultation design requests found.';
-            }
-
+            while ($row7 = mysqli_fetch_assoc($result_7col)) {
+                //img + brand name
+                $sql1="SELECT * FROM Designer WHERE id='" .$row7['designerID'] ."'";
+                $result1= mysqli_query($connection, $sql1);
+                $row1= mysqli_fetch_assoc($result1);
+                echo '<tr><td> <a href="DesignPortoflioProject.php?id=' .$row1['id'] .'"><img src=images/' .$row1['logoImgFileName'] .'\'> <br>';
+                echo $row2['brandName'] .'</a></td>';//img?????????????
             
+                //Room
+                $sql2="SELECT * FROM roomtype WHERE id='" .$row7['roomTypeID'] ."'";
+                $result2= mysqli_query($connection, $sql2);
+                $row2= mysqli_fetch_assoc($result2);
+                echo '<td>' .$row2['type'] .'</td>';
+                
+                //Dimensions
+                echo '<td>' . $row7['roomWidth'] . 'x ' . $row7['roomLength'] . 'm</td>'; //HOE I CAN REMOVE THE 00 (after pointe)
+                
+                //Design Category
+                $sql3="SELECT category FROM designcategory WHERE id='" .$row7['designCategoryID'] ."'";
+                $result3= mysqli_query($connection, $sql3);
+                $row3= mysqli_fetch_assoc($result3);
+                echo '<td>' . $row3['category'] . '</td>';
+                
+                //Color Preferences
+                echo '<td>' . $row7['colorPreferences'] . '</td>';
+                //Requests Date
+                echo '<td>' . $row7['date'] . '</td>';
+                
+                //status of Design Consultation
+                $sql4="SELECT * FROM requeststatus WHERE id='" .$row7['statusID'] . "'";
+                $result4= mysqli_query($connection, $sql4);
+                $row4= mysqli_fetch_assoc($result4);
+                // If a consultation provided for a request, then the consultation and its image are shown in the corresponding cell.
+                if ($row4['status'] == 'consultation provided') {
+                    $sql5="SELECT * FROM designconsultation where requestID='" .$row4['id'] ."'";
+                    $result5= mysqli_query($connection, $sql5);
+                    $row5= mysqli_fetch_assoc($result5);
+                    echo '<td> <img src="' . $row5['consultationImgFileName'] . '"alt="designers Consultation"> <br>' .$row5['consultation'] .'</td>';
+                }else{
+                    echo "<td>" .$row4['status'] ."</td>";
+                }
+                echo '</tr>';
+            } 
             
             ?>
-            
+            </table>
           </main>
+          
+          <footer>
+      <section id="footer">
+        <div class="main-footer">
+          <div class="Us">
+            <h2>Why Us?</h2>
+            <ul>
+              <li>Industry Knowledge and Trends</li>
+              <li>Design Guidance and Consultation</li>
+              <li>Wide Range of Products</li>
+              <li>Expertise and Experience</li>
+            </ul>
+          </div>
+          <div class="contact">
+            <h2>Contact Us</h2>
+            <ul>
+              <li>
+                <a href="mailto:ArtiScape@gmail.com"
+                  ><img
+                    src="images/Email.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20"
+                  >ArtiScape@gmail.com</a
+                >
+              </li>
+              <li>
+                <img
+                  src="images/phone.png"
+                  alt="phone icon"
+                  width="20"
+                  height="20"
+                >+966555518694
+              </li>
+            </ul>
+          </div>
+          <div class="Social">
+            <h2>Social Media</h2>
+            <ul>
+              <li>
+                <a href="https://instgram.com"
+                  ><img
+                    src="images/instgram.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com"
+                  ><img
+                    src="images/X.png"
+                    alt="X icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com"
+                  ><img
+                    src="images/Facebook.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20">
+                  ArtiScape
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p>
+          Copy right ©2023 made with
+          <img src="images/heart.png" alt="love" width="15" height="15"> in
+          KSU
+        </p>
+      </section>
+    </footer>
       </body>
           
             </html>
