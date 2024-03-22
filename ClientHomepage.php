@@ -150,8 +150,7 @@ ini_set('display_errors','1');
                         $result_get= mysqli_query($connection, $sql_get);
                         
                         while ($row = mysqli_fetch_assoc($result_get)){
-                            echo '<tr><td> <a href="DesignPortoflioProject.php?id=' .$row['id'] .'"> <br>'; //logoImgFileName
-                            echo $row['brandName'] .'</a></td>';
+                            echo '<tr><td> <a href="DesignPortoflioProject.php?id=' . $row['id'] . '"> <img src="images/' . $row['logoImgFileName'] . '" alt="' . $row['brandName'] . '"> <br>' . $row['brandName'] . '</a></td>';
                             
                             //Specialty
                             $sql_get2="SELECT * FROM designspeciality WHERE designerID='" .$row['id'] ."'";
@@ -181,9 +180,8 @@ ini_set('display_errors','1');
                             $sql_post2="SELECT * FROM Designer WHERE id='" .$row['designerID'] ."'";
                             $result_post2= mysqli_query($connection, $sql_post2);
                             $row2= mysqli_fetch_assoc($result_post2);
-                            echo '<tr><td> <a href="DesignPortoflioProject.php?id=' .$row2['id'] .'"><img src=images/' .$row2['logoImgFileName'] .'\'> <br>';
-                            echo $row2['brandName'] .'</a></td>';//img?????????????
-                            
+                            //<img src="images/' . $row2['logoImgFileName'] . '" alt="' . $row2['brandName'] . '"> <br>' . $row2['brandName'] . '</td>'
+                            echo '<tr><td> <a href="DesignPortoflioProject.php?id=' . $row2['id'] . '"> <img src="images/' . $row2['logoImgFileName'] . '" alt="' . $row2['brandName'] . '"> <br>' . $row2['brandName'] . '</a></td>';                            
                             //Specialty
                             $sql_post3="SELECT category FROM designcategory WHERE id='" .$row['designCategoryID'] ."'";
                             $result_post3= mysqli_query($connection, $sql_post3);
@@ -201,9 +199,7 @@ ini_set('display_errors','1');
                     ?>
 
                 </table>            
-            
-           
-            
+                
         <!-- Previous Design Consultation Requests for specific client ID (TABLE): -->
         <table>
                 <caption style="margin-top: 1em;">Previous Design Consultation Requests</caption>
@@ -226,17 +222,16 @@ ini_set('display_errors','1');
                 $sql1="SELECT * FROM Designer WHERE id='" .$row7['designerID'] ."'";
                 $result1= mysqli_query($connection, $sql1);
                 $row1= mysqli_fetch_assoc($result1);
-                echo '<tr><td> <a href="DesignPortoflioProject.php?id=' .$row1['id'] .'"><img src=images/' .$row1['logoImgFileName'] .'\'> <br>';
-                echo $row2['brandName'] .'</a></td>';//img?????????????
+                echo '<tr> <td> <img src="images/' . $row1['logoImgFileName'] . '" alt="' . $row1['brandName'] . '"> <br>' . $row1['brandName'] . '</td>';
             
                 //Room
-                $sql2="SELECT * FROM roomtype WHERE id='" .$row7['roomTypeID'] ."'";
+                $sql2="SELECT type FROM roomtype WHERE id='" .$row7['roomTypeID'] ."'";
                 $result2= mysqli_query($connection, $sql2);
                 $row2= mysqli_fetch_assoc($result2);
                 echo '<td>' .$row2['type'] .'</td>';
                 
                 //Dimensions
-                echo '<td>' . $row7['roomWidth'] . 'x ' . $row7['roomLength'] . 'm</td>'; //HOE I CAN REMOVE THE 00 (after pointe)
+                echo '<td>' . $row7['roomWidth'] . 'x' . $row7['roomLength'] . 'm</td>'; //HOE I CAN REMOVE THE 00 (after pointe)
                 
                 //Design Category
                 $sql3="SELECT category FROM designcategory WHERE id='" .$row7['designCategoryID'] ."'";
@@ -255,10 +250,11 @@ ini_set('display_errors','1');
                 $row4= mysqli_fetch_assoc($result4);
                 // If a consultation provided for a request, then the consultation and its image are shown in the corresponding cell.
                 if ($row4['status'] == 'consultation provided') {
-                    $sql5="SELECT * FROM designconsultation where requestID='" .$row4['id'] ."'";
+                    $sql5="SELECT * FROM designconsultation where requestID='" .$row7['id'] ."'";
                     $result5= mysqli_query($connection, $sql5);
                     $row5= mysqli_fetch_assoc($result5);
-                    echo '<td> <img src="' . $row5['consultationImgFileName'] . '"alt="designers Consultation"> <br>' .$row5['consultation'] .'</td>';
+                    echo '<td> <img src="image/' . $row5['consultationImgFileName'] . '"alt="designers Consultation"> <br>' .$row5['consultation'] .'</td>';
+                    
                 }else{
                     echo "<td>" .$row4['status'] ."</td>";
                 }
