@@ -1,0 +1,174 @@
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="el">
+    <head>
+        <title>Update page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="ArtiScape.css">
+        <style>
+          /* Form container */
+          .container {
+            max-width: 500px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #E6E6FA;
+            border-radius: 5px;
+          }
+        
+          /* Form labels */
+          label {
+            display: block;
+            margin-bottom: 10px;
+          }
+        
+          /* Form inputs */
+          input[type="text"],textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+          }
+        
+          /* Form submit button */
+          button {
+            background-color: #9678b6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+          }
+        
+          /* Form submit button hover effect */
+          button:hover {
+            background-color: #800080;
+          }
+        </style>
+    </head>
+    <body>
+        
+        <header>
+            <nav>
+                <a href="Designerhomepage.html"><img id="logo" src="images/Logo.png" alt="Logo"></a> 
+                <a href="index.html" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a>
+            </nav>
+        </header>
+        
+        <main>
+           <div class="container">
+            <form method="post" >
+          
+                      <label >Project name
+                        <input type="text" name="projectName" value="Home Office">
+                      </label> <br>
+
+                  <label >Project image
+
+                    <input type="file" name="projectImage"> 
+                </label><br>
+
+                  <label >Design category
+
+                    <select name="category">
+                      <option value="Modern">Modern</option>
+                      <option value="Coastal">Coastal</option>
+                      <option value="country">Country</option>
+                      <option value="Bohemian">Bohemian</option>
+                    </select></label><br>
+
+                  <label >Description
+
+                  <textarea name="subject" >White and black minimalist home office with clean lines.</textarea></label><br>
+
+                  <button type="button" onclick="window.location.href='Designerhomepage.html'">Submit</button>
+            </form>
+          </div>
+        </main>
+        
+        <footer>
+      <section id="footer">
+        <div class="main-footer">
+          <div class="Us">
+            <h2>Why Us?</h2>
+            <ul>
+              <li>Industry Knowledge and Trends</li>
+              <li>Design Guidance and Consultation</li>
+              <li>Wide Range of Products</li>
+              <li>Expertise and Experience</li>
+            </ul>
+          </div>
+          <div class="contact">
+            <h2>Contact Us</h2>
+            <ul>
+              <li>
+                <a href="mailto:ArtiScape@gmail.com"
+                  ><img
+                    src="images/Email.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20"
+                  >ArtiScape@gmail.com</a
+                >
+              </li>
+              <li>
+                <img
+                  src="images/phone.png"
+                  alt="phone icon"
+                  width="20"
+                  height="20"
+                >+966555518694
+              </li>
+            </ul>
+          </div>
+          <div class="Social">
+            <h2>Social Media</h2>
+            <ul>
+              <li>
+                <a href="https://instgram.com"
+                  ><img
+                    src="images/instgram.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com"
+                  ><img
+                    src="images/X.png"
+                    alt="X icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com"
+                  ><img
+                    src="images/Facebook.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20">
+                  ArtiScape
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p>
+          Copy right ©2023 made with
+          <img src="images/heart.png" alt="love" width="15" height="15"> in
+          KSU
+        </p>
+      </section>
+    </footer>
+    
+    </body>
+</html>

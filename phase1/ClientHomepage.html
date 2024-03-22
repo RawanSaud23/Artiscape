@@ -1,0 +1,250 @@
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="el">
+    <head>
+        <meta charset="utf-8">
+        <title>Client homepage</title>
+        <link rel="stylesheet" href="ArtiScape.css">
+        <style>
+            table{
+                border-collapse: collapse; /*No spaces between the cells*/
+                width: 100%;  /*as same as the page width*/ 
+            }
+            th, td{
+                border: 1px solid black;
+                text-align: center;
+            }
+            td{
+                height: 70px;
+            }
+            td a img{
+                width: 30%;
+            }
+            th:not(#noBorder){ /*No background color for the last th*/
+                background-color: #C3B1E1;
+            }
+            caption{
+                float: left;
+                font-size:x-large;
+            }
+            #ClientInfo{ /* name and email at top of the page */
+                background-color: #E6E6FA;
+                padding: 5px;
+                margin: auto;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            #Category{ /*Specialty filter */
+                float: right;
+            }
+            /* Form submit button (Filter) */
+          button {
+            background-color: #9678b6;
+            color: white;
+            border-radius: 4px;
+          }
+        
+          /* Form submit button (Filter) hover effect */
+          button:hover {
+            background-color: #800080;
+          }
+        </style>
+      </head>
+
+      <body>
+        <header>
+            <nav>
+                <a href="ClientHomepage.html"><img id="logo" src="images/Logo.png" alt="Logo"></a>
+                <a href="index.html" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a> 
+            </nav>  
+          </header>
+
+        <main>
+
+            <h2>Welcome Sara!</h2>
+
+            <div id="ClientInfo">
+                <p>Name: Sara Mohammed</p>
+                <p>email: sara@gmail.com</p>
+            </div>
+            <br>
+
+                <form method="post" id="Category">
+                    <label>Select Category: </label>
+                    <select>
+                        <option>Modern</option>
+                        <option>Coastal</option>
+                        <option>Bohemian</option>
+                        <option>Country</option>
+                    </select>
+                    <button type="button" value="Filter">Filter</button>
+                </form>
+                
+                <table>
+                    <caption>Interior Designers</caption>
+                    <!--1st Designer-->
+                    <tr>
+                        <th>Designer</th>
+                        <th>Specialty</th>
+                        <th style="border: none;" id="noBorder"></th> <!--inline style for no border in last th cell-->
+                    </tr>
+                    
+                    <tr>
+                        <td><a href="portfolio.html"><img src="images/ninteriors.png" alt="Designer brand logo"><br>
+                            NInteriors</a></td>
+
+                        <td>Modern, Country</td>
+
+                        <td><a href="RequestConsultation.html">Request Design Consultation</a></td>
+                    </tr>
+
+                    <!--2nd Designer-->
+                    <tr>
+                        <td><a href="portfolio.html"><img src="images/defanceConcepts.png" alt="Designer brand logo"><br>
+                            defence Concepts</a></td>
+
+                        <td>Modern, Country</td>
+
+                        <td><a href=" RequestConsultation.html">Request Design Consultation</a></td>
+                    </tr>
+                </table>
+
+                <table>
+                    <caption style="margin-top: 1em;">Previous Design Consultation Requests</caption>
+                    <tr>
+                        <th>Designer</th>
+                        <th>Room</th>
+                        <th>Dimensions</th>
+                        <th>Design Category</th>
+                        <th>Color Preferences</th>
+                        <th>Requests Date</th>
+                        <th>Design Consultation</th>
+                    </tr>
+                    <!--Data-->
+                    <tr>
+                        <!--1st Consultation Request-->
+                        <td><a><img src="images/InteriorDessign.png" alt="Designer brand logo"> </a>
+                        <br>Interior Design</td>
+
+                        <td>Living Room</td>
+                        <td>4x5m</td>
+                        <td>Modern</td>
+                        <td>Beige and Green</td>
+                        <td>9/1/2024</td>
+                        <td>pending consultation</td>
+                    </tr>
+                    <!--2nd Consultation Request-->
+                    <tr>
+                        <td><a><img src="images/defanceConcepts.png" alt="Designer brand logo"> </a>
+                            <br>Defence Concepts</td>
+    
+                            <td>bedroom</td>
+                            <td>3x4m</td>
+                            <td>Coastal</td>
+                            <td>Blue and White</td>
+                            <td>7/1/2024</td>
+                            <td>consultation declined</td>
+                    </tr>
+
+                    <!--3nd Consultation Request-->
+                    <tr>
+                        <td><a><img src="images/DesignFuniture.png" alt="Designer brand logo"> </a>
+                            <br>Design Furniture</td>
+    
+                            <td>Kitchen</td>
+                            <td>3x3m</td>
+                            <td>Bohemian</td>
+                            <td>Black and White</td>
+                            <td>5/1/2024</td>
+                            <td><img src="images/consultationProvided.jpg" alt="consultation" width="120" height="100">
+                                <br>Simple living room design with light colors.</td>
+                    </tr>
+                </table>
+
+        </main> 
+          <footer>
+      <section id="footer">
+        <div class="main-footer">
+          <div class="Us">
+            <h2>Why Us?</h2>
+            <ul>
+              <li>Industry Knowledge and Trends</li>
+              <li>Design Guidance and Consultation</li>
+              <li>Wide Range of Products</li>
+              <li>Expertise and Experience</li>
+            </ul>
+          </div>
+          <div class="contact">
+            <h2>Contact Us</h2>
+            <ul>
+              <li>
+                <a href="mailto:ArtiScape@gmail.com"
+                  ><img
+                    src="images/Email.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20"
+                  >ArtiScape@gmail.com</a
+                >
+              </li>
+              <li>
+                <img
+                  src="images/phone.png"
+                  alt="phone icon"
+                  width="20"
+                  height="20"
+                >+966555518694
+              </li>
+            </ul>
+          </div>
+          <div class="Social">
+            <h2>Social Media</h2>
+            <ul>
+              <li>
+                <a href="https://instgram.com"
+                  ><img
+                    src="images/instgram.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com"
+                  ><img
+                    src="images/X.png"
+                    alt="X icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com"
+                  ><img
+                    src="images/Facebook.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20">
+                  ArtiScape
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p>
+          Copy right ©2023 made with
+          <img src="images/heart.png" alt="love" width="15" height="15"> in
+          KSU
+        </p>
+      </section>
+    </footer>
+      </body>    
+</html>

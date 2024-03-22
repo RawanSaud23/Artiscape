@@ -1,0 +1,180 @@
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="el">
+    <head>
+        <title>Consultation page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="ArtiScape.css">
+        <style>
+          /* Form container */
+          .container {
+            max-width: 500px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #E6E6FA;
+            border-radius: 5px;
+          }
+        
+          /* Form labels */
+          label {
+            display: block;
+            margin-bottom: 10px;
+          }
+        
+          /* Form inputs */
+          input[type="text"],textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+          }
+        
+          /* Form submit button */
+          button {
+            background-color: #9678b6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+          }
+        
+          /* Form submit button hover effect */
+          button:hover {
+            background-color: #800080;
+          }
+          #Requestinfo{
+        margin:auto;
+        text-align: left;
+        padding: .5% .5%;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+        </style>
+    </head>
+    <body>
+        
+        <header>
+            <nav>
+                <a href="Designerhomepage.html"><img id="logo" src="images/Logo.png" alt="Logo"></a> 
+                <a href="index.html" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a>
+            </nav>
+        </header>
+        
+        <main>
+           <div class="container">
+            <form method="post">
+          
+                      <label >Request Information
+                      </label> 
+                      <div id="Requestinfo">
+                        Client: Sarah Ahmad<br>
+                        Room: Living Room<br>
+                        Dimensions: 4*5m<br>
+                        Design category: Modern<br>
+                        Color Preferences: Beige and green<br>
+                        Date: 9/1/2024
+        
+                    </div>
+                      
+                      <br>
+
+                  <label >Consultation:
+
+                  <textarea name="subject"></textarea></label><br>
+                  <label>Upload Image:</label>
+                  <input type="file" name="image" ><br><br>
+
+                <button type="button" onclick="window.location.href='Designerhomepage.html'">Submit</button>
+            </form>
+          </div>
+        </main>
+        
+        <footer>
+      <section id="footer">
+        <div class="main-footer">
+          <div class="Us">
+            <h2>Why Us?</h2>
+            <ul>
+              <li>Industry Knowledge and Trends</li>
+              <li>Design Guidance and Consultation</li>
+              <li>Wide Range of Products</li>
+              <li>Expertise and Experience</li>
+            </ul>
+          </div>
+          <div class="contact">
+            <h2>Contact Us</h2>
+            <ul>
+              <li>
+                <a href="mailto:ArtiScape@gmail.com"
+                  ><img
+                    src="images/Email.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20"
+                  >ArtiScape@gmail.com</a
+                >
+              </li>
+              <li>
+                <img
+                  src="images/phone.png"
+                  alt="phone icon"
+                  width="20"
+                  height="20"
+                >+966555518694
+              </li>
+            </ul>
+          </div>
+          <div class="Social">
+            <h2>Social Media</h2>
+            <ul>
+              <li>
+                <a href="https://instgram.com"
+                  ><img
+                    src="images/instgram.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com"
+                  ><img
+                    src="images/X.png"
+                    alt="X icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com"
+                  ><img
+                    src="images/Facebook.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20">
+                  ArtiScape
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p>
+          Copy right ©2023 made with
+          <img src="images/heart.png" alt="love" width="15" height="15"> in
+          KSU
+        </p>
+      </section>
+    </footer>
+
+    </body>
+</html>

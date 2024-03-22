@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="el">
+    <head>
+        <meta charset="utf-8">
+        <title>Designer homepage</title>
+        <link rel="stylesheet" href="ArtiScape.css">
+        <style>
+
+            table{
+                border-collapse: collapse;
+                width: 100%;  
+            }
+            th, td{
+                border: 1px solid black;
+                text-align: center;
+            }
+            td{
+                height: 70px;
+            }
+            td img{
+                width: 30%;
+            }
+            th:not(.noBorder){
+                background-color: #C3B1E1;
+            }
+            caption{
+                float: left;
+                font-size:x-large;
+            }
+            #DInfo{ /* Fname, Lname and email  */
+                background-color: #E6E6FA;
+                padding: 5px;
+                margin: auto;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+             #addProjectLink {
+                float: right;
+                margin-right: 1em;
+             }
+             
+        </style>
+        
+      </head>
+
+      <body>
+        <header>
+            <nav>
+                <a href="Designerhomepage.html"><img id="logo" src="images/Logo.png" alt="Logo"></a>
+                <a href="index.html" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a>
+            </nav>  
+          </header>
+
+        <main>
+
+            <h2>Welcome Noura!</h2>
+
+            <div id="DInfo">
+                <img src="images/ninteriors.png" width="250" height="100" alt="ninterior">
+                <p>Brand Name: NInteriors</p>
+                <p>Name: Noura saad</p>
+                <p>email: Nsaad@gmail.com</p>
+                <p>categories: Modern, Coasal</p>
+            </div>
+            <br>
+
+             <p id="addProjectLink"><a href="additionpage.html">Add New Project</a></p> <!--link to project addition page-->
+                <table>
+                    
+                    <caption>Design Portfolio</caption>
+                     
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Image</th>
+                        <th>Design category</th>
+                        <th>Description</th>
+                        <th colspan="2" style="border: none;" class="noBorder"></th>
+                    </tr>
+                    
+                    <tr>
+                        <td>Sun House</td>
+                        <td><img src="images/sunhouse.jpeg" alt="sun house"></td>
+                        <td>Country</td>
+                        <td>Rustic white sun house that has many green plants and windows with a country style.</td> 
+                        <td><a href="updatepage.html">Edit</a></td> <!-- link the project update page -->
+                        <td><a href="">Delete</a></td> 
+                    </tr>
+                    
+                    <tr>
+                        <td>Home Office</td>
+                        <td><img src="images/homeoffice.jpeg" alt="office"></td>
+                        <td>Modern</td>
+                        <td>White and black minimalist home office with clean lines.</td> 
+                        <td><a href="updatepage.html">Edit</a></td> <!-- link the project update page -->
+                        <td><a href="">Delete</a></td> 
+                    </tr>
+                    
+                </table>
+
+             
+             
+                <table>
+                    <caption style="margin-top: 1em;">Design Consultation Requests</caption>
+                    
+                    <tr>
+                        <th>Client</th>
+                        <th>Room</th>
+                        <th>Dimensions</th>
+                        <th>Design Category</th>
+                        <th>Color Preferences</th>
+                        <th>Date</th>
+                        <th colspan="2" style="border: none;" class="noBorder"></th> 
+                    </tr>
+                  
+                    <tr>
+                        <td>Sarah Ahmad</td>
+                        <td>Living Room</td>
+                        <td>4x5m</td>
+                        <td>Modern</td>
+                        <td>Beige and Green</td>
+                        <td>9/1/2024</td>
+                        <td><a href="Consultationpage.html">Provide Consultation</a></td> <!-- link to the design consultation page. -->
+                        <td><a href="index.html">Decline Consultation</a></td> <!-- link to the homepage -->
+                    </tr>
+       
+                    <tr>
+                            <td>Ali Jamal</td>
+                            <td>Bedroom</td>
+                            <td>3x4m</td>
+                            <td>Coasal</td>
+                            <td>Blue and White</td>
+                            <td>15/1/2024</td>
+                            <td><a href="Consultationpage.html">Provide Consultation</a></td> <!-- link to the design consultation page. -->
+                            <td><a href="index.html">Decline Consultation</a></td> <!-- link to the homepage -->
+                    </tr>
+                    
+                </table>
+           
+        </main>  
+          
+          <footer>
+      <section id="footer">
+        <div class="main-footer">
+          <div class="Us">
+            <h2>Why Us?</h2>
+            <ul>
+              <li>Industry Knowledge and Trends</li>
+              <li>Design Guidance and Consultation</li>
+              <li>Wide Range of Products</li>
+              <li>Expertise and Experience</li>
+            </ul>
+          </div>
+          <div class="contact">
+            <h2>Contact Us</h2>
+            <ul>
+              <li>
+                <a href="mailto:ArtiScape@gmail.com"
+                  ><img
+                    src="images/Email.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20"
+                  >ArtiScape@gmail.com</a
+                >
+              </li>
+              <li>
+                <img
+                  src="images/phone.png"
+                  alt="phone icon"
+                  width="20"
+                  height="20"
+                >+966555518694
+              </li>
+            </ul>
+          </div>
+          <div class="Social">
+            <h2>Social Media</h2>
+            <ul>
+              <li>
+                <a href="https://instgram.com"
+                  ><img
+                    src="images/instgram.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com"
+                  ><img
+                    src="images/X.png"
+                    alt="X icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com"
+                  ><img
+                    src="images/Facebook.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20">
+                  ArtiScape
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p>
+          Copy right ©2023 made with
+          <img src="images/heart.png" alt="love" width="15" height="15"> in
+          KSU
+        </p>
+      </section>
+    </footer>
+          
+          
+      </body>    
+</html>
