@@ -40,7 +40,7 @@ session_start();
             $cat=$_POST['category'];
             $color=$_POST['color'];
             
-            $sql = "SELECT id FROM Client WHERE ";///////////
+            $sql = "SELECT id FROM Client WHERE ";///////////incomplete :)
             $result1 = $connection->query($sql);
             if ($result1->num_rows > 0) {
                 $row1 = $result1->fetch_assoc();
@@ -161,8 +161,7 @@ session_start();
 
                       <input type="color" name="color"></label><br>
                       
-                      <!--submit--> add in DesignConsultationRequest table-->
-                      <button type="button" onclick="window.location.href='ClientHomepage.html'">Submit</button>
+                      <button type="button">Submit</button>
 
             </form>
           </div>
