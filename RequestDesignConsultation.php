@@ -30,7 +30,7 @@ session_start();
             if ($error!=null){                                                          
                 exit('database cannot found');                                      
             }
-            $designerId = $_GET['designer_id'];
+            $designerId = $_GET['designer_id'];//////error////////
             
             //$Did=$_SESSION['id'];
             if ($_SERVER["REQUEST_METHOD"] == "POST") {   
@@ -60,7 +60,7 @@ session_start();
                 
                 $sql4="INSERT INTO DesignConsultationRequest (id, clientID, designerID, roomTypeID,
                 designCategoryID, roomWidth, roomLength, colorPreferences, date, statusID) VALUES ((id, $Cid, $designerId, $Rid,
-                $Catid, $width, $lengthD, $color, now(), 'pending'))"; //////////////
+                $Catid, $width, $lengthD, $color, date(Y-m-d), 'pending'))"; //////////////
                 
                 
                 
