@@ -15,8 +15,8 @@ if($type == "designer"){
  $row = mysqli_fetch_assoc($result);
   if($row == null){
      echo '<script type ="text/JavaScript">';  
-echo'window.location.href="login.html";';
-echo 'alert("email doesnt exist");'; 
+echo'window.location.href="login.php";';
+echo 'alert("email doesnt exist");';
 echo '</script>'; 
    
   }else{
@@ -27,8 +27,8 @@ echo '</script>';
      
      } else{
              echo '<script type ="text/JavaScript">';  
-echo'window.location.href="login.html";';
-echo 'alert("wrong password");'; 
+echo'window.location.href="login.php";';
+echo 'alert("wrong password");';
 echo '</script>'; 
              
          }
@@ -42,19 +42,19 @@ echo '</script>';
  $row = mysqli_fetch_assoc($result);
   if($row == null){
      echo '<script type ="text/JavaScript">';  
-echo'window.location.href="login.html";';
-echo 'alert("email doesnt exist");'; 
+echo'window.location.href="login.php";';
+echo 'alert("email doesnt exist");';
 echo '</script>'; 
    
   }else{
      if(password_verify($pass, $row["password"])) {
        $_SESSION["id"]=$row['id'];
-        $_SESSION["type"]="designer";   
+        $_SESSION["type"]="client";
      header("Location: clientHomepage.php");
      
      } else{
              echo '<script type ="text/JavaScript">';  
-echo'window.location.href="login.html";';
+echo'window.location.href="login.php";';
 echo 'alert("wrong password");'; 
 echo '</script>'; 
              
