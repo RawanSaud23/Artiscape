@@ -12,17 +12,16 @@ session_start();
             
             
             //validate user type and get his/her id
-            if(isset($_SESSION['id']) && isset($_SESSION['type'])){
+            if(isset($_SESSION['id']) || isset($_SESSION['type'])!='designer'){
                 $ClientID= $_SESSION['id'];
                 $userType= $_SESSION['type'];
             }
             
             if(!isset($_SESSION['id'])){ //when the user is designer
-                header("Location: index.php"); //Designer Homepage insted of OR Log in??
+                header("Location: index.php");
                 exit();
             } 
           
-            //DB connection from the include file
             $connection= mysqli_connect('localhost','root', 'root', 'artiscape');
             
             //error handling
@@ -31,9 +30,8 @@ session_start();
                 exit('database cannot found');                                      
             }
             
-            $designerId = $_GET['id'];
-            
-            
+            $designerId = $_GET['DesignerID'];
+
             if ($_SERVER["REQUEST_METHOD"] == "POST") {   
             $Rtype=$_POST['RoomType'];////////////////////
             $width = $_FILES['widthD'];
@@ -54,12 +52,10 @@ session_start();
                 $row3 = $result3->fetch_assoc();
                 $Catid=$row3['id'];
                 
-                $sql4="INSERT INTO DesignConsultationRequest ( clientID, designerID, roomTypeID,
+                $sql4="INSERT INTO designconsultationrequest ( clientID, designerID, roomTypeID,
                 designCategoryID, roomWidth, roomLength, colorPreferences, date, statusID) VALUES (( $Cid, $designerId, $Rid,
                 $Catid, $width, $lengthD, $color, date(Y-m-d), '1'))"; //////////////
-                
-                
-                
+
                 if (mysqli_query($connection, $sql4)) {
                 // Redirect to homepage after successful insertion
                 header("Location: ClientHomepage.php");
@@ -127,9 +123,9 @@ session_start();
         </header>
         <main>
            <div class="container">
-            <form method="post">
+            <form method="POST" action="ClientHomepage.php">
                
-                <?php echo '<input type="hidden" name="designer_id" value="' . $designerId . '">'; ?>
+                <?php echo '<input type="hidden" name="DesignerID" value="' . $designerId . '">'; ?>
           
                       <label>Room type
                       

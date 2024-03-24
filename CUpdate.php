@@ -7,7 +7,7 @@ $connection= mysqli_connect("localhost","root","root","artiscape");
     if (isset($_GET['updatedid'])) {
     $updatedid = $_GET['updatedid'];
 
-    $sql = "Update FROM DesignConsultationRequest SET statusID='2' WHERE id = $updatedid";
+    $sql = "Update FROM designconsultationrequest SET statusID='2' WHERE id = $updatedid";
    if (mysqli_query($connection, $sql)) {
    echo '<script>alert ("The consulation is declined.")</script>';
    header("Location: DesignerHomepage.php");

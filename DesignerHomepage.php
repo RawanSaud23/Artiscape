@@ -81,44 +81,73 @@ if (mysqli_connect_error() != null) {
     echo '<img src="images/' . $row1['logoImgFileName'] . '" width="250" height="100" alt="">';
     echo '<p>Brand Name: ' . $row1['brandName'] . '</p>';
     echo '<p>Name: ' . $row1['firstName'] . ' ' . $row1['lastName'] . '</p>';
-    echo '<p>Email: ' . $row1['emailAddress'] . '</p>';
-    $sql2 = "SELECT category FROM designcategory WHERE id =" . $row1['id'];
+    echo '<p>Email: ' . $row1['emailAddress'] . '</p>'; 
+
+    $sql2 = "SELECT category FROM designcategory WHERE id IN (SELECT designCategoryID FROM designspeciality WHERE designerID = '$Sid')";
     $result2 = mysqli_query($connection, $sql2);
-    $Crow = mysqli_fetch_assoc($result2);
-    echo '<p>Categories: ' . $Crow['category'] . '</p>';
+    $CAT="";
+    echo "<td>";
+    $firstCategory = true;
+    while ($crow=mysqli_fetch_assoc($result2)){
+        if ($firstCategory) {
+            $CAT .= $crow['category'];
+            $firstCategory = false;
+        } else {
+             $CAT.=',' .$crow['category'];
+        }
+    }
+    echo '<p>Categories: ' . $CAT . '</p>';
     echo '</div>';
     echo '<br>';
 
     echo '<p id="addProjectLink"><a href="additionpage.php">Add New Project</a></p>';
     echo '<table>';
 
-    echo '<caption>Design Portfolio</caption>';
+echo '<caption>Design Portfolio</caption>';
 
-    echo '<tr>';
-    echo '<th>Project Name</th>';
-    echo '<th>Image</th>';
-    echo '<th>Design category</th>';
-    echo '<th>Description</th>';
-    echo '<th colspan="2" style="border: none;" class="noBorder"></th>';
-    echo '</tr>';
+echo '<tr>';
+echo '<th>Project Name</th>';
+echo '<th>Image</th>';
+echo '<th>Design category</th>';
+echo '<th>Description</th>';
+echo '<th colspan="2" style="border: none;" class="noBorder"></th>';
+echo '</tr>';
 
-    $sql3 = "SELECT * FROM designportfolioproject WHERE designerID ='$Sid'";
-    $result3 = mysqli_query($connection, $sql3);
-    while ($row3 = mysqli_fetch_assoc($result3)) {
-        echo "<tr>";
-        echo "<td>" . $row3['projectName'] . "</td>";
-        echo "<td><img src='images/" . $row3['projectImgFileName'] . "'></td>";
-        $sql4 = "SELECT * FROM DesignCategory WHERE id=" . $row3['designCategoryID'];
-        $result4 = mysqli_query($connection, $sql4);
-        $rowcid = mysqli_fetch_assoc($result4);
-        echo "<td>" . $rowcid['category'] . "</td>";
-        echo "<td>" . $row3['description'] . "</td>";
-        echo '<td><a href="updatepage.php?project_id=' .$row3['id'] .'>Edit</a></td>';//ERROR
-        echo "<td class='hover'><a href='PDelete.php?project_id=" . $row3['id'] . "'>Delete</a></td>";//ERRORS
-        echo "</tr>";
+$sql3 = "SELECT * FROM designportfolioproject WHERE designerID ='$Sid'";
+$result3 = mysqli_query($connection, $sql3);
+while ($row3 = mysqli_fetch_assoc($result3)) {
+    echo "<tr>";
+    echo "<td>" . $row3['projectName'] . "</td>";
+    echo "<td><img src='images/" . $row3['projectImgFileName'] . "'></td>";
+    $sql4 = "SELECT * FROM DesignCategory WHERE id=" . $row3['designCategoryID'];
+    $result4 = mysqli_query($connection, $sql4);
+
+    $CAT2="";
+    $firstCategory = true;
+    while ($rowcid = mysqli_fetch_assoc($result4)){
+        if ($firstCategory) {
+            $CAT2 .= $rowcid['category'];
+            $firstCategory = false;
+        } else {
+             $CAT2.=',' .$rowcid['category'];
+        }
     }
+    echo "<td>" . $CAT2 . "</td>";
+    
+//    $CAT2 = "";
+//    while ($rowcid = mysqli_fetch_assoc($result4)) {
+//        $CAT2 .= ',' . $rowcid['category'];
+//    }
+//    echo "<td>" . $CAT2 . "</td>";
+    
+    echo "<td>" . $row3['description'] . "</td>";
+    echo '<td><a href="updatepage.php?project_id=' . $row3['id'] . '">Edit</a></td>';
+    echo "<td class='hover'><a href='PDelete.php?project_id=" . $row3['id'] . "'>Delete</a></td>";
+    echo "</tr>";
+}
 
-    echo '</table>';
+echo '</table>';
+    echo'<br>';
     echo '<table>';
     echo '<caption style="margin-top: 1em;">Design Consultation Requests</caption>';
 
@@ -244,5 +273,3 @@ if (mysqli_connect_error() != null) {
           
       </body>    
 </html>
-
-
