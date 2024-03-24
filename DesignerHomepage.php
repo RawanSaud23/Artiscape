@@ -113,8 +113,8 @@ if (mysqli_connect_error() != null) {
         $rowcid = mysqli_fetch_assoc($result4);
         echo "<td>" . $rowcid['category'] . "</td>";
         echo "<td>" . $row3['description'] . "</td>";
-        echo '<td><a href="updatepage.php?project_id=' .$row3['id'] .'>Edit</a></td>';
-        echo "<td class='hover'><a href='PDelete.php?project_id=" . $row3['id'] . "'>Delete</a></td>";
+        echo '<td><a href="updatepage.php?project_id=' .$row3['id'] .'>Edit</a></td>';//ERROR
+        echo "<td class='hover'><a href='PDelete.php?project_id=" . $row3['id'] . "'>Delete</a></td>";//ERRORS
         echo "</tr>";
     }
 
@@ -136,7 +136,7 @@ if (mysqli_connect_error() != null) {
     $result5 = mysqli_query($connection, $sql5);
     while ($row5 = mysqli_fetch_assoc($result5)) {
         echo '<tr>';
-        $sql4 = "SELECT * FROM Client WHERE id ='1'";//نبدله $Sid
+        $sql4 = "SELECT * FROM Client WHERE id ='$Sid'";//نبدله $Sid
         $result4 = mysqli_query($connection, $sql4);
         $row4 = mysqli_fetch_assoc($result4);
         echo '<td>' . $row4['firstName'] . ' ' . $row4['lastName'] . '</td>';
@@ -151,7 +151,7 @@ if (mysqli_connect_error() != null) {
         echo '<td>' . $rowC['category'] . '</td>';
         echo '<td>' . $row5['colorPreferences'] . '</td>';
         echo '<td>' . $row5['date'] . '</td>';
-        echo '<td><a href="Consultationpage.html">Provide Consultation</a></td>';
+        echo '<td><a href="Consultationpage.php">Provide Consultation</a></td>';//MISSING Query
         echo '<td><a href="CDelete.php?updatedid=' . $row5['id'] . '">Decline Consultation</a></td>';
         echo '</tr>';
     }
