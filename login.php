@@ -23,7 +23,7 @@ echo '</script>';
      if(password_verify($pass, $row["password"])) {
        $_SESSION["id"]=$row['id'];
         $_SESSION["type"]="designer";   
-     header("Location: Designerhomepage.html");
+     header("Location: Designerhomepage.php");
      
      } else{
              echo '<script type ="text/JavaScript">';  
@@ -50,7 +50,7 @@ echo '</script>';
      if(password_verify($pass, $row["password"])) {
        $_SESSION["id"]=$row['id'];
         $_SESSION["type"]="designer";   
-     header("Location: clientHomepage.html");
+     header("Location: clientHomepage.php");
      
      } else{
              echo '<script type ="text/JavaScript">';  

@@ -75,7 +75,7 @@ text-align: center;
         </nav>
     </header>
     <div id="top">
-    <h1>sign up php</h1>
+    <h1>sign up</h1>
 
 
 <form method="post" >

@@ -99,7 +99,7 @@ ini_set('display_errors','1');
             
             //request client info (for the welcoming card): 
             //$sql="SELECT * FROM client WHERE id='$ClientID'"; MUST CHANGE
-            $sql="SELECT * FROM client WHERE id='1'";
+            $sql="SELECT * FROM client WHERE id='$ClientID'";
             $result= mysqli_query($connection, $sql);
             
             $client= mysqli_fetch_assoc($result);
@@ -214,7 +214,7 @@ ini_set('display_errors','1');
                 </tr>
           
             <?php
-            $sql_7col="SELECT * FROM designconsultationrequest WHERE clientID='1'" ; //='$ClientID'
+            $sql_7col="SELECT * FROM designconsultationrequest WHERE clientID='$ClientID'" ; //='$ClientID'
             $result_7col = mysqli_query($connection, $sql_7col);
             
             while ($row7 = mysqli_fetch_assoc($result_7col)) {

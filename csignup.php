@@ -29,11 +29,11 @@ if($error != null){
         $_SESSION["id"]=$id;
         $_SESSION["type"]="client";
          //client homepage 
-          header("Location: ClientHomepage.html");
+          header("Location: ClientHomepage.php");
          
      }else{
          echo '<script type ="text/JavaScript">';  
-echo'window.location.href="trysignup.php";';
+echo'window.location.href="signup.php";';
 echo 'alert("email already exists");'; 
 echo '</script>'; 
  

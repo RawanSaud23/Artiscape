@@ -61,7 +61,8 @@ a{
 <body>
     <header>
         <nav>
-            <a href="index.php"><img id="logo" src="images/Logo.png" alt="Logo"></a>            
+            
+            <a href="index.php"><img id="logo" src="images/Logo.png" alt="Logo"></a> 
         </nav>
         
     </header>
