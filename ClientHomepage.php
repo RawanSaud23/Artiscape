@@ -66,7 +66,7 @@ ini_set('display_errors','1');
     
         <header>
             <nav>
-                <a href="ClientHomepage.html"><img id="logo" src="images/Logo.png" alt="Logo"></a>
+                <a href="ClientHomepage.php"><img id="logo" src="images/Logo.png" alt="Logo"></a>
                 <a href="signout.php" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a> 
             </nav>  
           </header>
@@ -76,18 +76,18 @@ ini_set('display_errors','1');
            
             session_start();
             
-            /*
+            
             //validate user type and get his/her id
             if(isset($_SESSION['id']) && isset($_SESSION['type'])){
                 $ClientID= $_SESSION['id'];
                 $userType= $_SESSION['type'];
             }
             
-            if(!isset($_SESSION['id']) == 0){ //when the user is designer
+            if(!isset($_SESSION['id'])){ //when the user is designer
                 header("Location: index.php"); //Designer Homepage insted of OR Log in??
                 exit();
             } 
-          */
+         
             //DB connection from the include file
             $connection= mysqli_connect('localhost','root', 'root', 'artiscape');
             

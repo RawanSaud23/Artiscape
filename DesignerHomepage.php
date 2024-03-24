@@ -49,7 +49,7 @@
       <body>
         <header>
             <nav>
-                <a href="Designerhomepage.html"><img id="logo" src="images/Logo.png" alt="Logo"></a>
+                <a href="Designerhomepage.php"><img id="logo" src="images/Logo.png" alt="Logo"></a>
                 <a href="signout.php" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a>
             </nav>  
           </header>

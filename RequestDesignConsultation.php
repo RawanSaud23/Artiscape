@@ -10,18 +10,18 @@ ini_set('display_errors','1');
 
 session_start();
             
-            /*
+            
             //validate user type and get his/her id
             if(isset($_SESSION['id']) && isset($_SESSION['type'])){
                 $ClientID= $_SESSION['id'];
                 $userType= $_SESSION['type'];
             }
             
-            if(!isset($_SESSION['id']) == 0){ //when the user is designer
+            if(!isset($_SESSION['id'])){ //when the user is designer
                 header("Location: index.php"); //Designer Homepage insted of OR Log in??
                 exit();
             } 
-          */
+          
             //DB connection from the include file
             $connection= mysqli_connect('localhost','root', 'root', 'artiscape');
             
