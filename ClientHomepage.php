@@ -118,7 +118,7 @@ ini_set('display_errors','1');
             </div>
             <br>
             
-            <form method="post" action="index.php" id="Category"> <!-- action="ClientHomepage.php" -->
+            <form method="post" action="ClientHomepage.php" id="Category"> <!-- action="ClientHomepage.php" -->
                     <label>Select Category: </label>
                     <select name="category">
                         <?php
@@ -164,7 +164,7 @@ ini_set('display_errors','1');
                             
                             //The request design consultation link is a code-generated link to the request design 
                             //consultation page for the corresponding designer:
-                            echo "<td> <a href= DesignConsultationRequest.php?DesignerID=" .$row['id'] ."> Request Design Consultation </td>";////Request Design Consultation
+                            echo "<td> <a href= RequestDesignConsultation.php?DesignerID=" .$row['id'] ."> Request Design Consultation </td>";////Request Design Consultation
                             echo '</tr>';
                         }
 
@@ -191,7 +191,7 @@ ini_set('display_errors','1');
                             
                             //The request design consultation link is a code-generated link to the request design 
                             //consultation page for the corresponding designer:
-                            echo "<td> <a href= RequestConsultation.php?DesignerID=" .$row['designerID'] ."> Request Design Consultation</a> </td>";////Request Design Consultation
+                            echo "<td> <a href= RequestDesignConsultation.php?DesignerID=" .$row['designerID'] ."> Request Design Consultation</a> </td>";////Request Design Consultation
                             echo '</tr>';
                         }
                         

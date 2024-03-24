@@ -30,9 +30,10 @@ session_start();
             if ($error!=null){                                                          
                 exit('database cannot found');                                      
             }
-            $designerId = $_GET['designer_id'];//////error////////
             
-            //$Did=$_SESSION['id'];
+            $designerId = $_GET['id'];
+            
+            
             if ($_SERVER["REQUEST_METHOD"] == "POST") {   
             $Rtype=$_POST['RoomType'];////////////////////
             $width = $_FILES['widthD'];
@@ -40,11 +41,6 @@ session_start();
             $cat=$_POST['category'];
             $color=$_POST['color'];
             
-            $sql = "SELECT id FROM Client WHERE ";///////////incomplete :)
-            $result1 = $connection->query($sql);
-            if ($result1->num_rows > 0) {
-                $row1 = $result1->fetch_assoc();
-                $Cid=$row1['id'];
             
             $sql2 = "SELECT id FROM RoomType WHERE type='$Rtype'";
             $result2 = $connection->query($sql2);
@@ -58,9 +54,9 @@ session_start();
                 $row3 = $result3->fetch_assoc();
                 $Catid=$row3['id'];
                 
-                $sql4="INSERT INTO DesignConsultationRequest (id, clientID, designerID, roomTypeID,
-                designCategoryID, roomWidth, roomLength, colorPreferences, date, statusID) VALUES ((id, $Cid, $designerId, $Rid,
-                $Catid, $width, $lengthD, $color, date(Y-m-d), 'pending'))"; //////////////
+                $sql4="INSERT INTO DesignConsultationRequest ( clientID, designerID, roomTypeID,
+                designCategoryID, roomWidth, roomLength, colorPreferences, date, statusID) VALUES (( $Cid, $designerId, $Rid,
+                $Catid, $width, $lengthD, $color, date(Y-m-d), '1'))"; //////////////
                 
                 
                 
@@ -68,7 +64,7 @@ session_start();
                 // Redirect to homepage after successful insertion
                 header("Location: ClientHomepage.php");
                 exit();
-            }}}
+            }}
             }
             
             }//POST///
@@ -125,13 +121,14 @@ session_start();
         
         <header>
             <nav>
-                <a href="ClientHomepage.html"><img id="logo" src="images/Logo.png" alt="Logo"></a>            
+                <a href="ClientHomepage.php"><img id="logo" src="images/Logo.png" alt="Logo"></a>            
                 <a href="signout.php" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a>
             </nav>
         </header>
         <main>
            <div class="container">
             <form method="post">
+               
                 <?php echo '<input type="hidden" name="designer_id" value="' . $designerId . '">'; ?>
           
                       <label>Room type
