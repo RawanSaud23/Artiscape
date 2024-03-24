@@ -71,7 +71,7 @@ a{
    
    <button type="button" onclick="window.location.href='login.html'">Login</button>
 
-<p>New User? <a href="trysignup.php"> Sign-up</a>  </p>
+<p>New User? <a href="signup.php"> Sign-up</a>  </p>
 
 </div>
 <footer>

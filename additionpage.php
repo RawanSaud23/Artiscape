@@ -90,7 +90,7 @@ if ($result->num_rows > 0) {
         <header>
             <nav>
                 <a href="Designerhomepage.html"><img id="logo" src="images/Logo.png" alt="Logo"></a> 
-                <a href="index.html" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a>
+                <a href="signout.php" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a>
             </nav>
         </header>
         
