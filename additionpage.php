@@ -78,7 +78,7 @@ if ($result->num_rows > 0) {
  //$Did iam not sure i need to link it with reem to test it.
      if (mysqli_query($conn, $sql)) {
         // Redirect to homepage after successful insertion
-        header("Location: index.php");
+        header("Location: DesignerHomepage.php");
         exit();
     }
     

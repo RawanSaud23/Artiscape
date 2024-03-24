@@ -72,13 +72,13 @@ if (mysqli_connect_error() != null) {
     echo 'An error occurred in the database connection.';
     die(mysqli_connect_error());
 } else {
-    //$Sid = $_SESSION['id'];
+    $Sid = $_SESSION['id'];
     $sql1 = "SELECT * FROM designer WHERE id = '$Sid'";//نبدله $Sid
     $result1 = mysqli_query($connection, $sql1);
     $row1 = mysqli_fetch_assoc($result1);
     echo "<h2>Welcome " . $row1['firstName'] . "!</h2>";
-    echo '<div id="DInfo">';
-    echo '<img src="images/' . $row1['projectImgFileName'] . '" width="250" height="100" alt="">';
+    echo '<div id="DInfo">'; 
+    echo '<img src="images/' . $row1['logoImgFileName'] . '" width="250" height="100" alt="">';
     echo '<p>Brand Name: ' . $row1['brandName'] . '</p>';
     echo '<p>Name: ' . $row1['firstName'] . ' ' . $row1['lastName'] . '</p>';
     echo '<p>Email: ' . $row1['emailAddress'] . '</p>';
@@ -89,7 +89,7 @@ if (mysqli_connect_error() != null) {
     echo '</div>';
     echo '<br>';
 
-    echo '<p id="addProjectLink"><a href="additionpage.html">Add New Project</a></p>';
+    echo '<p id="addProjectLink"><a href="additionpage.php">Add New Project</a></p>';
     echo '<table>';
 
     echo '<caption>Design Portfolio</caption>';
@@ -102,7 +102,7 @@ if (mysqli_connect_error() != null) {
     echo '<th colspan="2" style="border: none;" class="noBorder"></th>';
     echo '</tr>';
 
-    $sql3 = "SELECT * FROM designportfolioproject WHERE designerID ='$Sid'";//نبدله $Sid
+    $sql3 = "SELECT * FROM designportfolioproject WHERE designerID ='$Sid'";
     $result3 = mysqli_query($connection, $sql3);
     while ($row3 = mysqli_fetch_assoc($result3)) {
         echo "<tr>";
@@ -113,7 +113,7 @@ if (mysqli_connect_error() != null) {
         $rowcid = mysqli_fetch_assoc($result4);
         echo "<td>" . $rowcid['category'] . "</td>";
         echo "<td>" . $row3['description'] . "</td>";
-        echo '<td><a href="updatepage.php">Edit</a></td>';
+        echo '<td><a href="updatepage.php?project_id=' .$row3['id'] .'>Edit</a></td>';
         echo "<td class='hover'><a href='PDelete.php?project_id=" . $row3['id'] . "'>Delete</a></td>";
         echo "</tr>";
     }

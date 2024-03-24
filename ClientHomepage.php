@@ -78,13 +78,13 @@ ini_set('display_errors','1');
             
             
             //validate user type and get his/her id
-            if(isset($_SESSION['id']) && isset($_SESSION['type'])){
+            if(isset($_SESSION['id']) && isset($_SESSION['type'])!='designer'){
                 $ClientID= $_SESSION['id'];
                 $userType= $_SESSION['type'];
             }
             
             if(!isset($_SESSION['id'])){ //when the user is designer
-                header("Location: index.php"); //Designer Homepage insted of OR Log in??
+                header("Location: index.php"); 
                 exit();
             } 
          
@@ -98,7 +98,7 @@ ini_set('display_errors','1');
             }
             
             //request client info (for the welcoming card): 
-            //$sql="SELECT * FROM client WHERE id='$ClientID'"; MUST CHANGE
+            
             $sql="SELECT * FROM client WHERE id='$ClientID'";
             $result= mysqli_query($connection, $sql);
             

@@ -61,8 +61,8 @@ if (!$conn) {
 }
 
 // Check if project ID is present in the query string
-if (isset($_GET['id'])) {
-    $project_id = $_GET['id'];
+if (isset($_GET['project_id'])) {
+    $project_id = $_GET['project_id'];
 
     // Retrieve project information based on the project ID
     $sql = "SELECT * FROM designportfolioproject WHERE id =".$project_id;

@@ -4,7 +4,8 @@ $error=mysqli_connect_error();
 if($error != null){
 die($error); } 
   
-  
+ session_start();
+ 
   $email= $_POST['email'];
   $pass= $_POST['pass'];
   $type= $_POST['type'];
