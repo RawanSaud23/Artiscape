@@ -33,7 +33,7 @@ session_start();
             $designerId = $_GET['DesignerID'];
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {   
-            $Rtype=$_POST['RoomType'];////////////////////
+            $Rtype=$_POST['RoomType'];
             $width = $_FILES['widthD'];
             $lengthD=$_POST['lengthD'];
             $cat=$_POST['category'];
@@ -127,12 +127,16 @@ session_start();
                
                 <?php echo '<input type="hidden" name="DesignerID" value="' . $designerId . '">'; ?>
           
-                      <label>Room type
-                      
+                      <label>Room type         
+                        <?php 
+                        $sql="SELECT type FROM roomtype ";
+                        $result= mysqli_query($connection, $sql);
+                        ?>
                       <select name="RoomType">
-                        <option value="LivingR">Living Room</option>
-                        <option value="bedroom">bedroom</option>
-                        <option value="Kitchen">Kitchen</option>
+                          <?php
+                        while ($row = mysqli_fetch_assoc($result)){
+                            echo '<option value=' .$row["type"] .'>' .$row['type'] .'</option>';
+                        } ?>
                       </select></label><br>
 
                   <label>Room dimension</label>
@@ -142,12 +146,15 @@ session_start();
                 
 
                   <label>Design category
-
+                        <?php 
+                        $sqlC="SELECT category FROM designcategory ";
+                        $resultC= mysqli_query($connection, $sqlC);
+                        ?>
                   <select name="category">
-                    <option value="Modern">Modern</option>
-                    <option value="Coasal">Coastal</option>
-                    <option value="Country">Country</option>
-                    <option value="Bohemian">Bohemian</option>
+                      <?php
+                        while ($rowC = mysqli_fetch_assoc($resultC)){
+                            echo '<option value=' .$rowC["category"] .'>' .$rowC['category'] .'</option>';
+                        } ?>
                   </select></label><br>
 
                   <label>Color Preferences
