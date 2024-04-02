@@ -8,10 +8,8 @@ ini_set('log_errors','1');
 
 ini_set('display_errors','1');
 
-session_start();
-            
-            
-            //validate user type and get his/her id
+            session_start();                       
+           //validate user type and get his/her id
             if(isset($_SESSION['id']) || isset($_SESSION['type'])!='designer'){
                 $ClientID= $_SESSION['id'];
                 $userType= $_SESSION['type'];
@@ -30,8 +28,9 @@ session_start();
                 exit('database cannot found');                                      
             }
             
-            $designerId = $_GET['DesignerID'];
-
+            $designerId = $_GET['DesignerID']; 
+                
+            //get user Consultation request
             if ($_SERVER["REQUEST_METHOD"] == "POST") {   
             $Rtype=$_POST['RoomType'];
             $width = $_FILES['widthD'];
@@ -123,10 +122,9 @@ session_start();
         </header>
         <main>
            <div class="container">
-            <form method="POST" action="ClientHomepage.php">
+            <form method="POST" action="RequestDesignConsultation.php" enctype="multipart/form-data">
                
-                <?php echo '<input type="hidden" name="DesignerID" value="' . $designerId . '">'; ?>
-          
+                <input type="hidden" name="DesignerID" value="<?php echo isset ($designerId)?$designerId:''; ?>">
                       <label>Room type         
                         <?php 
                         $sql="SELECT type FROM roomtype ";
@@ -161,8 +159,8 @@ session_start();
 
                       <input type="color" name="color"></label><br>
                       
-                      <button type="button">Submit</button>
-
+                      <input type="button" value="Submit">
+                      
             </form>
           </div>
         </main>
