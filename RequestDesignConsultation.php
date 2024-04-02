@@ -95,7 +95,7 @@ ini_set('display_errors','1');
           }
         
           /* Form submit button */
-          button {
+          #submit {
             background-color: #9678b6;
             color: white;
             padding: 10px 20px;
@@ -155,7 +155,7 @@ ini_set('display_errors','1');
 
                       <input type="color" name="color"></label><br>
                       
-                      <input type="button" value="Submit">
+                      <input type="button" value="Submit"id="submit">
                       
             </form>
           </div>
