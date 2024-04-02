@@ -31,9 +31,9 @@ ini_set('display_errors','1');
             $designerId = $_GET['DesignerID']; 
                 
             //get user Consultation request
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {   
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $Rtype=$_POST['RoomType'];
-            $width = $_FILES['widthD'];
+            $width = $_POST['widthD'];
             $lengthD=$_POST['lengthD'];
             $cat=$_POST['category'];
             $color=$_POST['color'];
@@ -41,27 +41,23 @@ ini_set('display_errors','1');
             
             $sql2 = "SELECT id FROM RoomType WHERE type='$Rtype'";
             $result2 = $connection->query($sql2);
-            if ($result2->num_rows > 0) {
-                $row2 = $result2->fetch_assoc();
-                $Rid=$row2['id'];
+            $row2 = $result2->fetch_assoc();
+            $Rid=$row2['id'];
                 
             $sql3 = "SELECT id FROM DesignCategory WHERE category='$cat'";
             $result3 = $connection->query($sql3);
-            if ($result3->num_rows > 0) {
-                $row3 = $result3->fetch_assoc();
-                $Catid=$row3['id'];
+            $row3 = $result3->fetch_assoc();
+            $Catid=$row3['id'];
                 
-                $sql4="INSERT INTO designconsultationrequest ( clientID, designerID, roomTypeID,
-                designCategoryID, roomWidth, roomLength, colorPreferences, date, statusID) VALUES (( $Cid, $designerId, $Rid,
-                $Catid, $width, $lengthD, $color, date(Y-m-d), '1'))"; //////////////
+            $sql4="INSERT INTO designconsultationrequest ( clientID, designerID, roomTypeID,
+            designCategoryID, roomWidth, roomLength, colorPreferences, date, statusID) VALUES (( $ClientID, $designerId, $Rid,
+            $Catid, $width, $lengthD, $color, 'date(Y-m-d)', '1'))";
 
-                if (mysqli_query($connection, $sql4)) {
-                // Redirect to homepage after successful insertion
-                header("Location: ClientHomepage.php");
-                exit();
-            }}
+            if (mysqli_query($connection, $sql4)) {
+            // Redirect to homepage after successful insertion
+            header("Location: ClientHomepage.php");
+            exit();
             }
-            
             }//POST///
 ?>
 
