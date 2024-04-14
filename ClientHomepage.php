@@ -180,43 +180,42 @@ ini_set('display_errors','1');
                     //2nd Case when user select Category                           
                     }else if($_SERVER['REQUEST_METHOD'] === 'POST'){
                         $CatID = $_POST['category'];
-                        $sql_post = "SELECT * FROM designspeciality WHERE designCategoryID IN ('$CatID')";
                         
+                        $sql_post = "SELECT * FROM designspeciality WHERE designCategoryID='$CatID'";
                         $result_post= mysqli_query($connection, $sql_post);
-                        
                         while ($row = mysqli_fetch_assoc($result_post)){
                             //img + brand name
-                            $sql_post2="SELECT * FROM Designer WHERE id='" .$row['designerID'] ."'";
+                            $sql_post2="SELECT * FROM designer WHERE id='" .$row['designerID'] ."'";
                             $result_post2= mysqli_query($connection, $sql_post2);
-                            $row2= mysqli_fetch_assoc($result_post2);
+                            while($row2= mysqli_fetch_assoc($result_post2)){
                             //<img src="images/' . $row2['logoImgFileName'] . '" alt="' . $row2['brandName'] . '"> <br>' . $row2['brandName'] . '</td>'
                             echo '<tr><td> <a href="DesignPortoflioProject.php?id=' . $row2['id'] . '"> <img src="images/' . $row2['logoImgFileName'] . '" alt="' . $row2['brandName'] . '"> <br>' . $row2['brandName'] . '</a></td>';                            
                             //Specialty
-                            
-                            $sql_post3 = "SELECT category FROM designcategory WHERE id IN ('$CatID')";
+                            $sql_post3 = "SELECT * FROM designspeciality WHERE designerID='" .$row['designerID']."'";
                             $result_post3= mysqli_query($connection, $sql_post3);
-                            
                             $CAT = "";
                             echo "<td>";
                             $firstCategory = true;
                             while ($row3= mysqli_fetch_assoc($result_post3)) {
-                                
-                                if ($firstCategory) {
-                                    $CAT .= $row3['category'];
+                                $sql4= "SELECT category FROM designcategory WHERE id='". $row3['designCategoryID']."'";
+                                $result4= mysqli_query($connection, $sql4);
+                                if($row4= mysqli_fetch_assoc($result4)){
+                                    if ($firstCategory) {
+                                    $CAT .= $row4['category'];
                                     $firstCategory = false;
                                 } else {
-                                    $CAT .= ', ' . $row3['category'];
+                                    $CAT .= ', ' . $row4['category'];
+                                }
                                 }
                             }
                             echo $CAT;
                             echo '</td>';
-                          
                             //The request design consultation link is a code-generated link to the request design 
                             //consultation page for the corresponding designer:
                             echo "<td> <a href= RequestDesignConsultation.php?DesignerID=" .$row['designerID'] ."> Request Design Consultation</a> </td>";////Request Design Consultation
                             echo '</tr>';
                         }
-                        
+                        }
                     }
                     ?>
 

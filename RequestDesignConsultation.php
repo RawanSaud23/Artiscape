@@ -1,6 +1,4 @@
 <?php
-//include 
-
 //errors ( as comment before you submition)
 error_reporting(E_ALL);
 
