@@ -126,7 +126,7 @@ ini_set('display_errors','1');
 
                       <input type="color" name="color"></label><br>
                       
-                      <input type="button" value="Submit"id="submit">
+                      <input type="button" value="Submit" id="submit">
                       
             </form>
           </div>

@@ -1,3 +1,12 @@
+<?php
+//errors ( as comment before you submition)
+error_reporting(E_ALL);
+
+ini_set('log_errors','1');
+
+ini_set('display_errors','1');
+?>
+
 <!DOCTYPE html>
 <html lang="el">
     <head>
@@ -109,8 +118,7 @@ if ($result->num_rows > 0) {
         }
 
         // Update project details in the database
-        $sql = "UPDATE designportfolioproject SET projectName='$pname', designCategoryID='$id', description='$des', projectImgFileName='$image' WHERE id=".$project_id; // Update the WHERE condition as needed
-
+    $sql = "UPDATE designportfolioproject SET projectName='$pname', designCategoryID='$id', description='$des', projectImgFileName='$image' WHERE id=".$project['id']; // Update the WHERE condition as needed
         if (mysqli_query($conn, $sql)) {
             // Redirect to homepage after successful update
             header("Location: index.php");
@@ -131,7 +139,7 @@ if ($result->num_rows > 0) {
         
         <main>
            <div class="container">
-            <form method="post" action="updatepage.php" enctype="multipart/form-data">
+            <form method="post" action="updatepage.php">
                <input type="hidden" name="project_id" value="<?php echo isset($project_id)?$project_id:''; ?>">   <!-- iam not sure  -->
                       <label >Project name
                         <input type="text" name="projectName" value="<?php echo isset($project['projectName']) ? $project['projectName'] : ''; ?>">

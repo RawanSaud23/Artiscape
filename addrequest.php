@@ -54,14 +54,6 @@
             }
             }//POST///
 
-
-
-
-
-
-
-
-
 $connection= mysqli_connect("localhost","root","root","artiscape");
         if(mysqli_connect_error()!= null){
             echo'An error occur in database connection';
