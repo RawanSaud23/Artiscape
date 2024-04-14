@@ -8,17 +8,17 @@ ini_set('log_errors','1');
 
 ini_set('display_errors','1');
 
-            session_start();                       
+            //session_start();                       
            //validate user type and get his/her id
-            if(isset($_SESSION['id']) || isset($_SESSION['type'])!='designer'){
-                $ClientID= $_SESSION['id'];
-                $userType= $_SESSION['type'];
-            }
+            //if(isset($_SESSION['id']) || isset($_SESSION['type'])!='designer'){
+              //  $ClientID= $_SESSION['id'];
+                //$userType= $_SESSION['type'];
+            //}
             
-            if(!isset($_SESSION['id'])){ //when the user is designer
-                header("Location: index.php");
-                exit();
-            } 
+            //if(!isset($_SESSION['id'])){ //when the user is designer
+              //  header("Location: index.php");
+                //exit();
+            //} 
           
             $connection= mysqli_connect('localhost','root', 'root', 'artiscape');
             
@@ -27,38 +27,9 @@ ini_set('display_errors','1');
             if ($error!=null){                                                          
                 exit('database cannot found');                                      
             }
-            
-            $designerId = $_GET['DesignerID']; 
-                
-            //get user Consultation request
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $Rtype=$_POST['RoomType'];
-            $width = $_POST['widthD'];
-            $lengthD=$_POST['lengthD'];
-            $cat=$_POST['category'];
-            $color=$_POST['color'];
-            
-            
-            $sql2 = "SELECT id FROM RoomType WHERE type='$Rtype'";
-            $result2 = $connection->query($sql2);
-            $row2 = $result2->fetch_assoc();
-            $Rid=$row2['id'];
-                
-            $sql3 = "SELECT id FROM DesignCategory WHERE category='$cat'";
-            $result3 = $connection->query($sql3);
-            $row3 = $result3->fetch_assoc();
-            $Catid=$row3['id'];
-                
-            $sql4="INSERT INTO designconsultationrequest ( clientID, designerID, roomTypeID,
-            designCategoryID, roomWidth, roomLength, colorPreferences, date, statusID) VALUES (( $ClientID, $designerId, $Rid,
-            $Catid, $width, $lengthD, $color, 'date(Y-m-d)', '1'))";
-
-            if (mysqli_query($connection, $sql4)) {
-            // Redirect to homepage after successful insertion
-            header("Location: ClientHomepage.php");
-            exit();
-            }
-            }//POST///
+             if (isset($_GET['id'])){
+                $designerId = $_GET['DesignerID'];
+            } 
 ?>
 
 <!DOCTYPE html>
@@ -118,9 +89,9 @@ ini_set('display_errors','1');
         </header>
         <main>
            <div class="container">
-            <form method="POST" action="RequestDesignConsultation.php" enctype="multipart/form-data">
+            <form method="POST" action="addrequest.php">
                
-                <input type="hidden" name="DesignerID" value="<?php echo isset ($designerId)?$designerId:''; ?>">
+                <input type="hidden" name="DesignerID" value="<?php echo $designerId; ?>">
                       <label>Room type         
                         <?php 
                         $sql="SELECT type FROM roomtype ";
