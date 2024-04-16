@@ -28,6 +28,11 @@ ini_set('display_errors','1');
              if (isset($_GET['id'])){
                 $designerId = $_GET['DesignerID'];
             } 
+            
+            // Retrieve the designer ID from the query string
+            if (isset($_GET['id'])){
+            $designerId3 = $_GET['id'];
+            } // if get
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +59,7 @@ ini_set('display_errors','1');
           }
         
           /* Form inputs */
-          input[type="text"], select {
+          input[type="text"], select, input[type="number"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -87,10 +92,10 @@ ini_set('display_errors','1');
         </header>
         <main>
            <div class="container">
-            <form method="POST" action="addrequest.php">
+            <form action="addrequest.php" method="POST">
                
-                <input type="hidden" name="DesignerID" value="<?php echo $designerId; ?>">
-                      <label>Room type         
+                <input type="hidden" name="Designer-ID" value="<?php echo $designerId3; ?>">
+                      <label>Room type</label>         
                         <?php 
                         $sql="SELECT type FROM roomtype ";
                         $result= mysqli_query($connection, $sql);
@@ -100,15 +105,15 @@ ini_set('display_errors','1');
                         while ($row = mysqli_fetch_assoc($result)){
                             echo '<option value=' .$row["type"] .'>' .$row['type'] .'</option>';
                         } ?>
-                      </select></label><br>
+                      </select><br>
 
                   <label>Room dimension</label>
 
-                      <label>Width: <input type="text" name="widthD" placeholder="(m)"></label>
-                      <label>Length: <input type="text" name="lengthD" placeholder="(m)"></label>
+                      <label>Width: </label><input type="number" name="widthD" placeholder="(m)">
+                      <label>Length: </label><input type="number" name="lengthD" placeholder="(m)">
                 
 
-                  <label>Design category
+                  <label>Design category</label>
                         <?php 
                         $sqlC="SELECT category FROM designcategory ";
                         $resultC= mysqli_query($connection, $sqlC);
@@ -118,13 +123,13 @@ ini_set('display_errors','1');
                         while ($rowC = mysqli_fetch_assoc($resultC)){
                             echo '<option value=' .$rowC["category"] .'>' .$rowC['category'] .'</option>';
                         } ?>
-                  </select></label><br>
+                  </select><br>
 
                   <label>Color Preferences
 
-                      <input type="color" name="color"></label><br>
+                      <input type="text" name="color"></label><br>
                       
-                      <input type="button" value="Submit" id="submit">
+                      <input type="submit" value="Submit" id="submit">
                       
             </form>
           </div>
