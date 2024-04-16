@@ -24,7 +24,7 @@ ini_set('display_errors','1');
             td{
                 height: 70px;
             }
-            td a img{
+            td a img, td img{
                 width: 30%;
             }
             th:not(#noBorder){ /*No background color for the last th*/
@@ -56,6 +56,7 @@ ini_set('display_errors','1');
           button:hover {
             background-color: #800080;
           }
+
         </style>
         </style>
       </head>
@@ -274,7 +275,8 @@ ini_set('display_errors','1');
                     $sql5="SELECT * FROM designconsultation where requestID='" .$row7['id'] ."'";
                     $result5= mysqli_query($connection, $sql5);
                     $row5= mysqli_fetch_assoc($result5);
-                    echo '<td> <img src="image/' . $row5['consultationImgFileName'] . '"alt="designers Consultation"> <br>' .$row5['consultation'] .'</td>';
+                    //echo '<td> <img src="image/' . $row5['consultationImgFileName'] . '" alt="designers Consultation" style="width: 5px; height: 10px;"> <br>' . $row5['consultation'] . '</td>';
+                echo '<td> <img src="image/' . $row5['consultationImgFileName'] . '" alt="designers Consultation" "width= 20 height= 15"> <br>' . $row5['consultation'] . '</td>';
                     
                 }else{
                     echo "<td>" .$row4['status'] ."</td>";

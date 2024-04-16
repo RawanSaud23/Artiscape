@@ -1,10 +1,10 @@
 <?php
 //errors ( as comment before you submition)
-error_reporting(E_ALL);
-
-ini_set('log_errors','1');
-
-ini_set('display_errors','1');
+//error_reporting(E_ALL);
+//
+//ini_set('log_errors','1');
+//
+//ini_set('display_errors','1');
 
             //session_start();                       
            //validate user type and get his/her id
@@ -25,13 +25,13 @@ ini_set('display_errors','1');
             if ($error!=null){                                                          
                 exit('database cannot found');                                      
             }
-             if (isset($_GET['id'])){
-                $designerId = $_GET['DesignerID'];
-            } 
-            
-            // Retrieve the designer ID from the query string
-            if (isset($_GET['id'])){
-            $designerId3 = $_GET['id'];
+//             if (isset($_GET['id'])){
+//                $designerId = $_GET['DesignerID'];
+//            } 
+//            
+             //Retrieve the designer ID from the query string
+            if (isset($_GET['DesignerID'])){
+            $designerId3 = $_GET['DesignerID'];
             } // if get
 ?>
 

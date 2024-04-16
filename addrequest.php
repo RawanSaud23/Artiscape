@@ -101,13 +101,13 @@ ini_set('display_errors','1');
 //            $sql4="INSERT INTO designconsultationrequest ( clientID, designerID, roomTypeID,designCategoryID, roomWidth, roomLength, colorPreferences, date, statusID) VALUES ( $newRequestID, $ClientID, $designerId, $Rid,
 //            $Catid, $width, $lengthD, $color, $currentDate, '1')";
 
-            $result4=mysqli_query($connection, $sql4);
+            $result4 = mysqli_query($connection, $sql4);
             if ($result4) {
                 echo "<script> alert('Successfully added'); </script>";
-            // Redirect to homepage after successful insertion
-            header("Location: ClientHomepage.php");
-            //exit();
-            }else {
-                    echo 'error insert into db';
-                    }
+                // Redirect to homepage after successful insertion
+                header("Location: ClientHomepage.php");
+                exit();
+            } else {
+                echo 'Error: ' . mysqli_error($connection);
+            }
             }//POST///
