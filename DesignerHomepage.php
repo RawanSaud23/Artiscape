@@ -86,7 +86,7 @@ if (mysqli_connect_error() != null) {
     $sql2 = "SELECT category FROM designcategory WHERE id IN (SELECT designCategoryID FROM designspeciality WHERE designerID = '$Sid')";
     $result2 = mysqli_query($connection, $sql2);
     $CAT="";
-    echo "<td>";
+
     $firstCategory = true;
     while ($crow=mysqli_fetch_assoc($result2)){
         if ($firstCategory) {
@@ -181,7 +181,7 @@ echo '</table>';
         echo '<td>' . $row5['colorPreferences'] . '</td>';
         echo '<td>' . $row5['date'] . '</td>';
         echo '<td><a href="Consultationpage.php">Provide Consultation</a></td>';//MISSING Query
-        echo '<td><a href="CDelete.php?updatedid=' . $row5['id'] . '">Decline Consultation</a></td>';
+        echo '<td><a href="CUpdate.php?updatedid=' . $row5['id'] . '">Decline Consultation</a></td>';
         echo '</tr>';
     }
     echo '</table>';

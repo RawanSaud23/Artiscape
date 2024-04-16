@@ -6,7 +6,6 @@ ini_set('log_errors','1');
 
 ini_set('display_errors','1');
 ?>
-
 <!DOCTYPE html>
 <html lang="el">
     <head>
@@ -56,11 +55,10 @@ ini_set('display_errors','1');
     </head>
     <body>
         <?php
-       
         session_start();
 if (!isset($_SESSION['id'])|| $_SESSION['type']!='designer') {
-    header('Location: index.php');
-    exit;
+     header('Location: index.php');
+     exit;
 } 
     $conn = mysqli_connect('localhost', 'root', 'root','artiscape');
 
@@ -70,11 +68,11 @@ if (!$conn) {
 }
 
 // Check if project ID is present in the query string
-if (isset($_GET['project_id'])) {
-    $project_id = $_GET['project_id'];
-
+//if (isset($_GET['project_id'])) {
+    $project_id = '2';
+  
     // Retrieve project information based on the project ID
-    $sql = "SELECT * FROM designportfolioproject WHERE id =".$project_id;
+    $sql = "SELECT * FROM designportfolioproject WHERE id =".$project_id ;
     $result = mysqli_query($conn, $sql);
     $project = mysqli_fetch_assoc($result);
     // change id=$project_id 
@@ -84,10 +82,11 @@ if (isset($_GET['project_id'])) {
     $project2 = mysqli_fetch_assoc($result2);
     
     
-    } //if statment
+  
     
     
-if ($_SERVER["REQUEST_METHOD"] == "POST") {   
+if ($_SERVER["REQUEST_METHOD"] == "POST") {  
+echo $project_id;
 $pname=$_POST['projectName'];
 $image = $_FILES['projectImage']['name'];
 $des=$_POST['description'];
@@ -118,29 +117,30 @@ if ($result->num_rows > 0) {
         }
 
         // Update project details in the database
-    $sql = "UPDATE designportfolioproject SET projectName='$pname', designCategoryID='$id', description='$des', projectImgFileName='$image' WHERE id=".$project['id']; // Update the WHERE condition as needed
+        $sql = "UPDATE designportfolioproject SET projectName='$pname', designCategoryID='$id', description='$des', projectImgFileName='$image' WHERE id=".$project_id; // Update the WHERE condition as needed
+
         if (mysqli_query($conn, $sql)) {
             // Redirect to homepage after successful update
-            header("Location: index.php");
+            header("Location: DesignerHomepage.php");
             exit();
         } 
     
-}
- } 
+}}//}
+
 
  
         ?>
         <header>
             <nav>
                 <a href="Designerhomepage.php"><img id="logo" src="images/Logo.png" alt="Logo"></a> 
-                <a href="signout.php" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a>
+                <a href="index.html" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a>
             </nav>
         </header>
         
         <main>
            <div class="container">
-            <form method="post" action="updatepage.php">
-               <input type="hidden" name="project_id" value="<?php echo isset($project_id)?$project_id:''; ?>">   <!-- iam not sure  -->
+            <form method="post" action="updatepage.php" enctype="multipart/form-data">
+               <input type="hidden" name="projectid" value="<?php echo isset($project_id)?$project_id:''; ?>">   <!-- iam not sure  -->
                       <label >Project name
                         <input type="text" name="projectName" value="<?php echo isset($project['projectName']) ? $project['projectName'] : ''; ?>">
                       </label> <br>
@@ -153,10 +153,10 @@ if ($result->num_rows > 0) {
                   <label >Design category
 
                     <select name="category">
-                      <option value="Modern"     <?php  echo isset($project['category']) && $project['category'] == 'Modern' ? 'selected' : '';  ?>      >Modern</option>
-                      <option value="Coastal"    <?php  echo isset($project['category']) && $project['category'] == 'Coastal' ? 'selected' : '';  ?>     >Coastal</option>
-                      <option value="country"    <?php  echo isset($project['category']) && $project['category'] == 'Country' ? 'selected' : '';  ?>     >Country</option>
-                      <option value="Bohemian"   <?php  echo isset($project['category']) && $project['category'] == 'Bohemian' ? 'selected' : '';  ?>    >Bohemian</option>
+                      <option value="Modern"     <?php  echo isset($project2['category']) && $project2['category'] == 'Modern' ? 'selected' : '';  ?>      >Modern</option>
+                      <option value="Coastal"    <?php  echo isset($project2['category']) && $project2['category'] == 'Coastal' ? 'selected' : '';  ?>     >Coastal</option>
+                      <option value="country"    <?php  echo isset($project2['category']) && $project2['category'] == 'Country' ? 'selected' : '';  ?>     >Country</option>
+                      <option value="Bohemian"   <?php  echo isset($project2['category']) && $project2['category'] == 'Bohemian' ? 'selected' : '';  ?>    >Bohemian</option>
                     </select></label><br>
 
                   <label >Description
@@ -251,6 +251,3 @@ if ($result->num_rows > 0) {
     
     </body>
 </html>
-
-
-

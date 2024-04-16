@@ -69,8 +69,8 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
  // Check if request ID is present in the query string
-if (isset($_GET['id'])) {
-    $request_id = $_GET['id'];
+//if (isset($_GET['id'])) {
+    $request_id = '8';
    // 
     // Retrieve request information based on the requestID
     $sql = "SELECT * FROM designconsultationrequest WHERE id =".$request_id;
@@ -90,7 +90,7 @@ if (isset($_GET['id'])) {
     $result4 = mysqli_query($conn, $sql4);
     $request4 = mysqli_fetch_assoc($result4);    
         
-      } 
+      //} 
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {   
         
@@ -110,7 +110,7 @@ if (isset($_GET['id'])) {
  //in 2 place we should put $request_id
      if (mysqli_query($conn, $sql6)) {
         // Redirect to designer's homepage after successful insertion
-        header("Location: index.php");
+        header("Location: DesignerHomepage.php");
         exit();
     }
     }
