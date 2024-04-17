@@ -88,7 +88,7 @@ text-align: center;
 </div>
 
 
-<form method="post" action='dsignup.php' id="designerform">
+<form method="post" action='dsignup.php' id="designerform" enctype="multipart/form-data">
   <fieldset>
 <legend> Designer information</legend>
 <label>First  name: <input type="text" name="fname"></label> <br>
@@ -114,7 +114,7 @@ $sql="SELECT * FROM designcategory ";
  $result= mysqli_query($connection, $sql);
  while( $row = mysqli_fetch_assoc($result))
          echo'<label> <input type="checkbox" name="category[]" value="'.$row['id'].'">'.$row['category'].'</label>';
-    
+         
         ?>
      
 </fieldset>

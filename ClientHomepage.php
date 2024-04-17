@@ -276,10 +276,8 @@
                     $result5= mysqli_query($connection, $sql5);
                     $row5= mysqli_fetch_assoc($result5);
                 //echo '<td> <img src="image/' . $row5['consultationImgFileName'] . '" alt="designers Consultation" style="width: 5px; height: 10px;"> <br>' . $row5['consultation'] . '</td>';
-                //echo '<td> <img src="image/' . $row5['consultationImgFileName'] . '" alt="designers Consultation"> <br>' . $row5['consultation'] . '</td>';
-                echo '<td><p>'.$row5['consultation'].'</p><br><img src="image/'.$row5['consultationImgFileName'].'" alt="designer\'s consulation" class="conImg"></td>';
-                        
-            
+                echo '<td> <img src="images/' . $row5['consultationImgFileName'] . '" alt="designers Consultation"> <br>' . $row5['consultation'] . '</td>';
+               
                 }else{
                     echo "<td>" .$row4['status'] ."</td>";
                 }

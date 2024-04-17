@@ -79,6 +79,8 @@ if (isset($_GET['project_id'])) {
     $sql2 = "SELECT category FROM designcategory WHERE id=" . $project['designCategoryID'];
     $result2 = mysqli_query($conn, $sql2);
     $project2 = mysqli_fetch_assoc($result2);
+    
+    
 
     // Now you can use $project to display the project details
     if ($project) {
@@ -96,6 +98,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $image = $_FILES['projectImage']['name'];
     $des = $_POST['description'];
     $cat = $_POST['category'];
+    $image_tmp = $_FILES['projectImage']['tmp_name'];
+
+    // Upload image to the 'images' folder
+    $image_path = "images/" . $image;
+    move_uploaded_file($image_tmp, $image_path);
+
 
     $sql = "SELECT id FROM designcategory WHERE category='$cat'";
     $result = $conn->query($sql);

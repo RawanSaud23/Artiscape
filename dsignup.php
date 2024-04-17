@@ -17,7 +17,13 @@
      $brand= $_POST['brand'];
      $logo= $_POST['logo'];
      $category= $_POST['category'];
-     
+     $image = $_FILES['logo']['name'];
+     $image_tmp = $_FILES['logo']['tmp_name'];
+
+    // Upload image to the 'images' folder
+    $image_path = "images/" . $image;
+    move_uploaded_file($image_tmp, $image_path);
+
       $connection= mysqli_connect("localhost", "root", "root", "artiscape");
 $error=mysqli_connect_error();
 if($error != null){
@@ -30,7 +36,7 @@ if($error != null){
      {
         
      //insert
-     $sql="INSERT INTO designer (`firstName`, `lastName`, `emailAddress`, `password`, `brandName`, `logoImgFileName`) VALUES ( '$fname', '$lname', '$email', '$password', '$brand', '$logo');";
+     $sql="INSERT INTO designer (`firstName`, `lastName`, `emailAddress`, `password`, `brandName`, `logoImgFileName`) VALUES ( '$fname', '$lname', '$email', '$password', '$brand', '$image');";
      $result= mysqli_query($connection, $sql);
      
      $sql=" SELECT id FROM designer where emailAddress = '$email'";

@@ -65,6 +65,11 @@ $pname=$_POST['projectName'];
 $image = $_FILES['projectImage']['name'];
 $des=$_POST['description'];
 $cat=$_POST['category'];
+    $image_tmp = $_FILES['projectImage']['tmp_name'];
+
+    // Upload image to the 'images' folder
+    $image_path = "images/" . $image;
+    move_uploaded_file($image_tmp, $image_path);
 
 $sql = "SELECT id FROM designcategory WHERE category='$cat'";
 $result = $conn->query($sql);
