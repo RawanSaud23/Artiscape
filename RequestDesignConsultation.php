@@ -6,6 +6,7 @@
 //
 //ini_set('display_errors','1');
 
+            //alreary exist in addrrquest
             //session_start();                       
            //validate user type and get his/her id
             //if(isset($_SESSION['id']) || isset($_SESSION['type'])!='designer'){
@@ -25,10 +26,7 @@
             if ($error!=null){                                                          
                 exit('database cannot found');                                      
             }
-//             if (isset($_GET['id'])){
-//                $designerId = $_GET['DesignerID'];
-//            } 
-//            
+          
              //Retrieve the designer ID from the query string
             if (isset($_GET['DesignerID'])){
             $designerId3 = $_GET['DesignerID'];
@@ -97,7 +95,7 @@
                 <input type="hidden" name="Designer-ID" value="<?php echo $designerId3; ?>">
                       <label>Room type</label>         
                         <?php 
-                        $sql="SELECT type FROM roomtype ";
+                        $sql="SELECT * FROM roomtype ";
                         $result= mysqli_query($connection, $sql);
                         ?>
                       <select name="RoomType">

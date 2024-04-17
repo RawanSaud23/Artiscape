@@ -1,195 +1,205 @@
 <!DOCTYPE html>
 <html lang="el">
-    <head>
-        <meta charset="utf-8">
-        <title>Designer homepage</title>
-        <link rel="stylesheet" href="ArtiScape.css">
-        <style>
-
-            table{
-                border-collapse: collapse;
-                width: 100%;  
-            }
-            th, td{
-                border: 1px solid black;
-                text-align: center;
-            }
-            td{
-                height: 70px;
-            }
-            td img{
-                width: 30%;
-            }
-            th:not(.noBorder){
-                background-color: #C3B1E1;
-            }
-            caption{
-                float: left;
-                font-size:x-large;
-            }
-            #DInfo{ /* Fname, Lname and email  */
-                background-color: #E6E6FA;
-                padding: 5px;
-                margin: auto;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-             #addProjectLink {
-                float: right;
-                margin-right: 1em;
-             }
-             
-        </style>
-        
-      </head>
-
-      <body>
-        <header>
-            <nav>
-                <a href="Designerhomepage.php"><img id="logo" src="images/Logo.png" alt="Logo"></a>
-                <a href="signout.php" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a>
-            </nav>  
-          </header>
-
-        <main>
-
-  <?php
-       session_start();
-       if (!isset($_SESSION['id'])) {
-       header('Location: index.php');
-       exit;
-       }
-       if ($_SESSION['type'] != 'designer') {
-       header('Location: ClientHomepage.php');
-        exit;
-       }  
-        
-$connection = mysqli_connect("localhost", "root", "root", "artiscape");
-if (mysqli_connect_error() != null) {
-    echo 'An error occurred in the database connection.';
-    die(mysqli_connect_error());
-} else {
-    $Sid = $_SESSION['id'];
-    $sql1 = "SELECT * FROM designer WHERE id = '$Sid'";//نبدله $Sid
-    $result1 = mysqli_query($connection, $sql1);
-    $row1 = mysqli_fetch_assoc($result1);
-    echo "<h2>Welcome " . $row1['firstName'] . "!</h2>";
-    echo '<div id="DInfo">'; 
-    echo '<img src="images/' . $row1['logoImgFileName'] . '" width="250" height="100" alt="">';
-    echo '<p>Brand Name: ' . $row1['brandName'] . '</p>';
-    echo '<p>Name: ' . $row1['firstName'] . ' ' . $row1['lastName'] . '</p>';
-    echo '<p>Email: ' . $row1['emailAddress'] . '</p>'; 
-
-    $sql2 = "SELECT category FROM designcategory WHERE id IN (SELECT designCategoryID FROM designspeciality WHERE designerID = '$Sid')";
-    $result2 = mysqli_query($connection, $sql2);
-    $CAT="";
-
-    $firstCategory = true;
-    while ($crow=mysqli_fetch_assoc($result2)){
-        if ($firstCategory) {
-            $CAT .= $crow['category'];
-            $firstCategory = false;
-        } else {
-             $CAT.=',' .$crow['category'];
+<head>
+    <meta charset="utf-8">
+    <title>Designer homepage</title>
+    <link rel="stylesheet" href="ArtiScape.css">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
         }
+
+        th, td {
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        td {
+            height: 70px;
+        }
+
+        td img {
+            width: 30%;
+        }
+
+        th:not(.noBorder) {
+            background-color: #C3B1E1;
+        }
+
+        caption {
+            float: left;
+            font-size: x-large;
+        }
+
+        #DInfo { /* Fname, Lname and email  */
+            background-color: #E6E6FA;
+            padding: 5px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #addProjectLink {
+            float: right;
+            margin-right: 1em;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <nav>
+        <a href="Designerhomepage.php"><img id="logo" src="images/Logo.png" alt="Logo"></a>
+        <a href="signout.php" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a>
+    </nav>
+</header>
+
+<main>
+
+    <?php
+    session_start();
+    if (!isset($_SESSION['id'])) {
+        header('Location: index.php');
+        exit;
     }
-    echo '<p>Categories: ' . $CAT . '</p>';
-    echo '</div>';
-    echo '<br>';
+    if ($_SESSION['type'] != 'designer') {
+        header('Location: ClientHomepage.php');
+        exit;
+    }
 
-    echo '<p id="addProjectLink"><a href="additionpage.php">Add New Project</a></p>';
-    echo '<table>';
+    $connection = mysqli_connect("localhost", "root", "root", "artiscape");
+    if (mysqli_connect_error() != null) {
+        echo 'An error occurred in the database connection.';
+        die(mysqli_connect_error());
+    } else {
+        $Sid = $_SESSION['id'];
+        $sql1 = "SELECT * FROM designer WHERE id = '$Sid'";
+        $result1 = mysqli_query($connection, $sql1);
+        $row1 = mysqli_fetch_assoc($result1);
+        echo "<h2>Welcome " . $row1['firstName'] . "!</h2>";
+        echo '<div id="DInfo">';
+        echo '<img src="images/' . $row1['logoImgFileName'] . '" width="250" height="100" alt="">';
+        echo '<p>Brand Name: ' . $row1['brandName'] . '</p>';
+        echo '<p>Name: ' . $row1['firstName'] . ' ' . $row1['lastName'] . '</p>';
+        echo '<p>Email: ' . $row1['emailAddress'] . '</p>';
 
-echo '<caption>Design Portfolio</caption>';
+        $sql2 = "SELECT category FROM designcategory WHERE id IN (SELECT designCategoryID FROM designspeciality WHERE designerID = '$Sid')";
+        $result2 = mysqli_query($connection, $sql2);
+        $CAT = "";
+
+        $firstCategory = true;
+        while ($crow = mysqli_fetch_assoc($result2)) {
+            if ($firstCategory) {
+                $CAT .= $crow['category'];
+                $firstCategory = false;
+            } else {
+                $CAT .= ',' . $crow['category'];
+            }
+        }
+        echo '<p>Categories: ' . $CAT . '</p>';
+        echo '</div>';
+        echo '<br>';
+
+        echo '<p id="addProjectLink"><a href="additionpage.php">Add New Project</a></p>';
+        echo '<table>';
+
+        echo '<caption>Design Portfolio</caption>';
+
+        echo '<tr>';
+        echo '<th>Project Name</th>';
+        echo '<th>Image</th>';
+        echo '<th>Design category</th>';
+        echo '<th>Description</th>';
+        echo '<th colspan="2" style="border: none;" class="noBorder"></th>';
+        echo '</tr>';
+
+        $sql3 = "SELECT * FROM designportfolioproject WHERE designerID ='$Sid'";
+        $result3 = mysqli_query($connection, $sql3);
+        while ($row3 = mysqli_fetch_assoc($result3)) {
+            echo "<tr>";
+            echo "<td>" . $row3['projectName'] . "</td>";
+            echo "<td><img src='images/" . $row3['projectImgFileName'] . "'></td>";
+            $sql4 = "SELECT * FROM DesignCategory WHERE id=" . $row3['designCategoryID'];
+            $result4 = mysqli_query($connection, $sql4);
+
+            $CAT2 = "";
+            $firstCategory = true;
+            while ($rowcid = mysqli_fetch_assoc($result4)) {
+                if ($firstCategory) {
+                    $CAT2 .= $rowcid['category'];
+                    $firstCategory = false;
+                } else {
+                    $CAT2 .= ',' . $rowcid['category'];
+                }
+            }
+            echo "<td>" . $CAT2 . "</td>";
+
+            echo "<td>" . $row3['description'] . "</td>";
+            echo '<td><a href="updatepage.php?project_id=' . $row3['id'] . '">Edit</a></td>';
+            echo "<td class='hover'><a href='PDelete.php?project_id=" . $row3['id'] . "'>Delete</a></td>";
+            echo "</tr>";
+        }
+
+        echo '<table>';
+echo '<caption style="margin-top: 1em;">Design Consultation Requests</caption>';
 
 echo '<tr>';
-echo '<th>Project Name</th>';
-echo '<th>Image</th>';
-echo '<th>Design category</th>';
-echo '<th>Description</th>';
+echo '<th>Client</th>';
+echo '<th>Room</th>';
+echo '<th>Dimensions</th>';
+echo '<th>Design Category</th>';
+echo '<th>Color Preferences</th>';
+echo '<th>Date</th>';
 echo '<th colspan="2" style="border: none;" class="noBorder"></th>';
 echo '</tr>';
 
-$sql3 = "SELECT * FROM designportfolioproject WHERE designerID ='$Sid'";
-$result3 = mysqli_query($connection, $sql3);
-while ($row3 = mysqli_fetch_assoc($result3)) {
-    echo "<tr>";
-    echo "<td>" . $row3['projectName'] . "</td>";
-    echo "<td><img src='images/" . $row3['projectImgFileName'] . "'></td>";
-    $sql4 = "SELECT * FROM DesignCategory WHERE id=" . $row3['designCategoryID'];
-    $result4 = mysqli_query($connection, $sql4);
+$sql5 = "SELECT * FROM DesignConsultationRequest WHERE statusID='1' AND designerID ='$Sid'";
+$result5 = mysqli_query($connection, $sql5);
 
-    $CAT2="";
-    $firstCategory = true;
-    while ($rowcid = mysqli_fetch_assoc($result4)){
-        if ($firstCategory) {
-            $CAT2 .= $rowcid['category'];
-            $firstCategory = false;
-        } else {
-             $CAT2.=',' .$rowcid['category'];
-        }
-    }
-    echo "<td>" . $CAT2 . "</td>";
-    
-//    $CAT2 = "";
-//    while ($rowcid = mysqli_fetch_assoc($result4)) {
-//        $CAT2 .= ',' . $rowcid['category'];
-//    }
-//    echo "<td>" . $CAT2 . "</td>";
-    
-    echo "<td>" . $row3['description'] . "</td>";
-    echo '<td><a href="updatepage.php?project_id=' . $row3['id'] . '">Edit</a></td>';
-    echo "<td class='hover'><a href='PDelete.php?project_id=" . $row3['id'] . "'>Delete</a></td>";
-    echo "</tr>";
-}
-
-echo '</table>';
-    echo'<br>';
-    echo '<table>';
-    echo '<caption style="margin-top: 1em;">Design Consultation Requests</caption>';
-
-    echo '<tr>';
-    echo '<th>Client</th>';
-    echo '<th>Room</th>';
-    echo '<th>Dimensions</th>';
-    echo '<th>Design Category</th>';
-    echo '<th>Color Preferences</th>';
-    echo '<th>Date</th>';
-    echo '<th colspan="2" style="border: none;" class="noBorder"></th>';
-    echo '</tr>';
-
-    $sql5 = "SELECT * FROM DesignConsultationRequest WHERE statusID='1' AND designerID ='$Sid'";//نبدله $Sid
-    $result5 = mysqli_query($connection, $sql5);
+if (mysqli_num_rows($result5) > 0) {
     while ($row5 = mysqli_fetch_assoc($result5)) {
         echo '<tr>';
-        $sql4 = "SELECT * FROM Client WHERE id ='$Sid'";//نبدله $Sid
+        
+        // Fetch client details
+        $sql4 = "SELECT * FROM client WHERE id =" . $row5['clientID'];
         $result4 = mysqli_query($connection, $sql4);
         $row4 = mysqli_fetch_assoc($result4);
         echo '<td>' . $row4['firstName'] . ' ' . $row4['lastName'] . '</td>';
+        
+        // Fetch room type
         $sql6 = "SELECT type FROM RoomType WHERE id =" . $row5['roomTypeID'];
         $result6 = mysqli_query($connection, $sql6);
         $row6 = mysqli_fetch_assoc($result6);
         echo '<td>' . $row6['type'] . '</td>';
+        
         echo '<td>' . $row5['roomWidth'] . 'x' . $row5['roomLength'] . 'm' . '</td>';
-        $sql7 = "SELECT * FROM DesignCategory WHERE id=" . $row5['designCategoryID'];
+        
+        // Fetch design category
+        $sql7 = "SELECT category FROM DesignCategory WHERE id=" . $row5['designCategoryID'];
         $result7 = mysqli_query($connection, $sql7);
         $rowC = mysqli_fetch_assoc($result7);
         echo '<td>' . $rowC['category'] . '</td>';
+        
         echo '<td>' . $row5['colorPreferences'] . '</td>';
         echo '<td>' . $row5['date'] . '</td>';
-        echo '<td><a href="Consultationpage.php">Provide Consultation</a></td>';//MISSING Query
+        echo '<td><a href="Consultationpage.php?id=' . $row5['id'] . '">Provide Consultation</a></td>';
         echo '<td><a href="CUpdate.php?updatedid=' . $row5['id'] . '">Decline Consultation</a></td>';
         echo '</tr>';
     }
-    echo '</table>';
+} else {
+    echo '<tr><td colspan="7">No Design Consultation Requests found.</td></tr>';
 }
-?>
-        </main>  
-          
-          <footer>
+
+echo '</table>';
+
+    }
+    ?>
+</main>
+
+<footer>
       <section id="footer">
         <div class="main-footer">
           <div class="Us">
@@ -269,7 +279,6 @@ echo '</table>';
         </p>
       </section>
     </footer>
-          
-          
-      </body>    
+
+</body>
 </html>

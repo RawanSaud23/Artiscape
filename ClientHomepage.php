@@ -1,10 +1,10 @@
 <?php
 //errors ( as comment before you submition)
-error_reporting(E_ALL);
-
-ini_set('log_errors','1');
-
-ini_set('display_errors','1');
+//error_reporting(E_ALL);
+//
+//ini_set('log_errors','1');
+//
+//ini_set('display_errors','1');
 ?>
 <!DOCTYPE html>
 <html lang="el">
@@ -275,9 +275,11 @@ ini_set('display_errors','1');
                     $sql5="SELECT * FROM designconsultation where requestID='" .$row7['id'] ."'";
                     $result5= mysqli_query($connection, $sql5);
                     $row5= mysqli_fetch_assoc($result5);
-                    //echo '<td> <img src="image/' . $row5['consultationImgFileName'] . '" alt="designers Consultation" style="width: 5px; height: 10px;"> <br>' . $row5['consultation'] . '</td>';
-                echo '<td> <img src="image/' . $row5['consultationImgFileName'] . '" alt="designers Consultation" "width= 20 height= 15"> <br>' . $row5['consultation'] . '</td>';
-                    
+                //echo '<td> <img src="image/' . $row5['consultationImgFileName'] . '" alt="designers Consultation" style="width: 5px; height: 10px;"> <br>' . $row5['consultation'] . '</td>';
+                //echo '<td> <img src="image/' . $row5['consultationImgFileName'] . '" alt="designers Consultation"> <br>' . $row5['consultation'] . '</td>';
+                echo '<td><p>'.$row5['consultation'].'</p><br><img src="image/'.$row5['consultationImgFileName'].'" alt="designer\'s consulation" class="conImg"></td>';
+                        
+            
                 }else{
                     echo "<td>" .$row4['status'] ."</td>";
                 }
