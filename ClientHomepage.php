@@ -253,7 +253,7 @@
                 echo '<td>' .$row2['type'] .'</td>';
                 
                 //Dimensions
-                echo '<td>' . $row7['roomWidth'] . 'x' . $row7['roomLength'] . 'm</td>'; //HOE I CAN REMOVE THE 00 (after pointe)
+                echo '<td>' . $row7['roomWidth'] . 'x' . $row7['roomLength'] . 'm</td>'; 
                 
                 //Design Category
                 $sql3="SELECT category FROM designcategory WHERE id='" .$row7['designCategoryID'] ."'";
