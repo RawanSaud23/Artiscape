@@ -133,7 +133,7 @@
           </div>
         </main>
         
-        <footer>
+       <footer>
       <section id="footer">
         <div class="main-footer">
           <div class="Us">

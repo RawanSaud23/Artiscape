@@ -142,86 +142,86 @@ $sql="SELECT * FROM designcategory ";
   <button type="submit" >signup</button>
 </div>
     </form>
-    <footer style="margin-top:90px">
-        <section id="footer">
-          <div class="main-footer">
-            <div class="Us">
-              <h2>Why Us?</h2>
-              <ul>
-                <li>Industry Knowledge and Trends</li>
-                <li>Design Guidance and Consultation</li>
-                <li>Wide Range of Products</li>
-                <li>Expertise and Experience</li>
-              </ul>
-            </div>
-            <div class="contact">
-              <h2>Contact Us</h2>
-              <ul>
-                <li>
-                  <a href="mailto:ArtiScape@gmail.com"
-                    ><img
-                      src="images/Email.png"
-                      alt="instgram icon"
-                      width="20"
-                      height="20"
-                    >ArtiScape@gmail.com</a
-                  >
-                </li>
-                <li>
-                  <img
-                    src="images/phone.png"
-                    alt="phone icon"
+    <footer>
+      <section id="footer">
+        <div class="main-footer">
+          <div class="Us">
+            <h2>Why Us?</h2>
+            <ul>
+              <li>Industry Knowledge and Trends</li>
+              <li>Design Guidance and Consultation</li>
+              <li>Wide Range of Products</li>
+              <li>Expertise and Experience</li>
+            </ul>
+          </div>
+          <div class="contact">
+            <h2>Contact Us</h2>
+            <ul>
+              <li>
+                <a href="mailto:ArtiScape@gmail.com"
+                  ><img
+                    src="images/Email.png"
+                    alt="instgram icon"
                     width="20"
                     height="20"
-                  >+966555518694
-                </li>
-              </ul>
-            </div>
-            <div class="Social">
-              <h2>Social Media</h2>
-              <ul>
-                <li>
-                  <a href="https://instgram.com"
-                    ><img
-                      src="images/instgram.png"
-                      alt="instgram icon"
-                      width="20"
-                      height="20"
-                    >
-                    ArtiScape
-                  </a>
-                </li>
-                <li>
-                  <a href="https://twitter.com"
-                    ><img
-                      src="images/X.png"
-                      alt="X icon"
-                      width="20"
-                      height="20"
-                    >
-                    ArtiScape
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.facebook.com"
-                    ><img
-                      src="images/Facebook.png"
-                      alt="instgram icon"
-                      width="20"
-                      height="20">
-                    ArtiScape
-                  </a>
-                </li>
-              </ul>
-            </div>
+                  >ArtiScape@gmail.com</a
+                >
+              </li>
+              <li>
+                <img
+                  src="images/phone.png"
+                  alt="phone icon"
+                  width="20"
+                  height="20"
+                >+966555518694
+              </li>
+            </ul>
           </div>
-          <p>
-            Copy right ©2023 made with
-            <img src="images/heart.png" alt="love" width="15" height="15"> in
-            KSU
-          </p>
-        </section>
-      </footer>
+          <div class="Social">
+            <h2>Social Media</h2>
+            <ul>
+              <li>
+                <a href="https://instgram.com"
+                  ><img
+                    src="images/instgram.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com"
+                  ><img
+                    src="images/X.png"
+                    alt="X icon"
+                    width="20"
+                    height="20"
+                  >
+                  ArtiScape
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com"
+                  ><img
+                    src="images/Facebook.png"
+                    alt="instgram icon"
+                    width="20"
+                    height="20">
+                  ArtiScape
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p>
+          Copy right ©2023 made with
+          <img src="images/heart.png" alt="love" width="15" height="15"> in
+          KSU
+        </p>
+      </section>
+    </footer>
    <script>
 
 function fun(){
