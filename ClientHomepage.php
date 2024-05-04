@@ -1,229 +1,98 @@
 <?php
-//errors ( as comment before you submition)
-//error_reporting(E_ALL);
-//
-//ini_set('log_errors','1');
-//
-//ini_set('display_errors','1');
+session_start();
+
+// Validate user type and ensure the user is not a designer
+if (!isset($_SESSION['id']) || $_SESSION['type'] == 'designer') {
+    header("Location: index.php");
+    exit();
+}
+
+$ClientID = $_SESSION['id'];
+$userType = $_SESSION['type'];
+
+// DB connection
+$connection = mysqli_connect('localhost', 'root', 'root', 'artiscape');
+if (mysqli_connect_error()) {
+    exit('Database connection failed: ' . mysqli_connect_error());
+}
+
+// Fetch client info
+$sql = "SELECT * FROM client WHERE id='$ClientID'";
+$result = mysqli_query($connection, $sql);
+$client = mysqli_fetch_assoc($result);
 ?>
 <!DOCTYPE html>
 <html lang="el">
-    <head>
-        <meta charset="utf-8">
-        <title>Client homepage</title>
-        <link rel="stylesheet" href="ArtiScape.css">
-        <style>                    
-            table{
-                border-collapse: collapse; /*No spaces between the cells*/
-                width: 100%;  /*as same as the page width*/ 
-            }
-            th, td{
-                border: 1px solid black;
-                text-align: center;
-            }
-            td{
-                height: 70px;
-            }
-            td a img, td img{
-                width: 30%;
-            }
-            th:not(#noBorder){ /*No background color for the last th*/
-                background-color: #C3B1E1;
-            }
-            caption{
-                float: left;
-                font-size:x-large;
-            }
-            #ClientInfo{ /* name and email at top of the page */
-                background-color: #E6E6FA;
-                padding: 5px;
-                margin: auto;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            #Category{ /*Specialty filter */
-                float: right;
-            }
-            /* Form submit button (Filter) */
-          button {
-            background-color: #9678b6;
-            color: white;
-            border-radius: 4px;
-          }
-        
-          /* Form submit button (Filter) hover effect */
-          button:hover {
-            background-color: #800080;
-          }
-
-        </style>
-        </style>
-      </head>
-
-      <body>
-    
-        <header>
+<head>
+    <meta charset="UTF-8">
+    <title>Client Homepage</title>
+    <link rel="stylesheet" href="ArtiScape.css">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            text-align: center;
+        }
+        td {
+            height: 70px;
+        }
+        th:not(#noBorder) {
+            background-color: #C3B1E1;
+        }
+        caption {
+            float: left;
+            font-size: x-large;
+        }
+        #ClientInfo {
+            background-color: #E6E6FA;
+            padding: 5px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<header>
             <nav>
                 <a href="ClientHomepage.php"><img id="logo" src="images/Logo.png" alt="Logo"></a>
                 <a href="signout.php" id="logout"><img class="log" src="images/logout.png" alt="Logout"></a> 
             </nav>  
           </header>
-       
-       
-            <?php
-           
-            session_start();
-          
-            //validate user type and get his/her id
-            if(isset($_SESSION['id']) || isset($_SESSION['type'])!='designer'){
-                $ClientID= $_SESSION['id'];
-                $userType= $_SESSION['type'];
-            }
-            
-            if(!isset($_SESSION['id'])){ //when the user is designer
-                header("Location: index.php"); 
-                exit();
-            } 
-         
-            //DB connection from the include file
-            $connection= mysqli_connect('localhost','root', 'root', 'artiscape');
-            
-            //error handling
-            $error= mysqli_connect_error();
-            if ($error!=null){                                                          
-                exit('database cannot found');                                      
-            }
-            
-            //request client info (for the welcoming card): 
-            $sql="SELECT * FROM client WHERE id='$ClientID'";
-            $result= mysqli_query($connection, $sql);
-            
-            $client= mysqli_fetch_assoc($result);
-            $client1Name= $client['firstName'];           
-            $clintLName= $client['lastName'];
-            $clientEmail= $client['emailAddress'];
-            ?>
-          
-          <main>
-                <!-- welcoming card -->
-            <h2>Welcome <?php echo $client1Name; ?>!</h2>
+<main>
+    <h2>Welcome <?php echo htmlspecialchars($client['firstName']); ?>!</h2>
+    <div id="ClientInfo">
+        <p>Name: <?php echo htmlspecialchars($client['firstName'] . ' ' . $client['lastName']); ?></p>
+        <p>Email: <?php echo htmlspecialchars($client['emailAddress']); ?></p>
+    </div>
 
-            <div id="ClientInfo">
-                <p>Name: <?php echo $client1Name .' ' .$clintLName; ?></p>
-                <p>email: <?php echo $clientEmail; ?> </p> <!-- MISSING style -->
-            </div>
-            <br>
-            
-            <form method="post" action="ClientHomepage.php" id="Category">
-                    <label>Select Category: </label>
-                    <select name="category">
-                        <?php
-                        //form for filtering designers by category:
-                        $sql_category="SELECT * FROM designcategory";
-                        $result_category= mysqli_query($connection, $sql_category);
-                        //retrive all the categories from DB
-                        while ($row = mysqli_fetch_assoc($result_category)){
-                            echo "<option value='" .$row['id'] ."'>" .$row['category'] ."</option>";
-                        }
-                        ?>
-                    </select>
-                    <button type="submit" value="Filter" id="filt">Filter</button>
-                </form>
-            
-            <!-- Interior Designers table -->
-            <table>
-                    <caption>Interior Designers</caption>
-                    <tr>
-                        <th>Designer</th>
-                        <th>Specialty</th>
-                        <th style="border: none;" id="noBorder"></th> <!--inline style for no border in last th cell-->
-                    </tr>
-                    
-                    <?php
-                    //Case 1: no Category selected (default Get)
-                    if ($_SERVER['REQUEST_METHOD'] === 'GET'){
-                        $sql_get="SELECT * FROM designer";//no Speciality slected so,no condition
-                        $result_get= mysqli_query($connection, $sql_get);
-                        
-                        while ($row = mysqli_fetch_assoc($result_get)){
-                            echo '<tr><td> <a href="DesignPortoflioProject.php?id=' . $row['id'] . '"> <img src="images/' . $row['logoImgFileName'] . '" alt="' . $row['brandName'] . '"> <br>' . $row['brandName'] . '</a></td>';
-                            
-                            //Specialty
-                            $sql_get2="SELECT * FROM designspeciality WHERE designerID='" .$row['id'] ."'";
-                            $result_get2= mysqli_query($connection, $sql_get2);
-                            
-                            $CAT = "";
-                            echo "<td>";
-                            $firstCategory = true;
-                            while ($row2 = mysqli_fetch_assoc($result_get2)) {
-                                $sql_get3 = "SELECT category FROM designcategory WHERE id='" . $row2['designCategoryID'] . "'";
-                                $result_get3 = mysqli_query($connection, $sql_get3);
-                                $row3 = mysqli_fetch_assoc($result_get3);
+    <label for="categorySelect">Select Category:</label>
+    <select name="category" id="categorySelect" onchange="fetchDesigners()">
+        <option value="">Select a Category</option>
+        <?php
+        $sql_category = "SELECT * FROM designcategory";
+        $result_category = mysqli_query($connection, $sql_category);
+        while ($row = mysqli_fetch_assoc($result_category)) {
+            echo "<option value='" . $row['id'] . "'>" . $row['category'] . "</option>";
+        }
+        ?>
+    </select>
 
-                                if ($firstCategory) {
-                                    $CAT .= $row3['category'];
-                                    $firstCategory = false;
-                                } else {
-                                    $CAT .= ', ' . $row3['category'];
-                                }
-                            }
-                            echo $CAT;
-                            echo '</td>';
-                            
-                            //The request design consultation link is a code-generated link to the request design 
-                            //consultation page for the corresponding designer:
-                            echo "<td> <a href= RequestDesignConsultation.php?DesignerID=" .$row['id'] ."> Request Design Consultation </td>";////Request Design Consultation
-                            echo '</tr>';
-                        }
-
-
-                    //2nd Case when user select Category                           
-                    }else if($_SERVER['REQUEST_METHOD'] === 'POST'){
-                        $CatID = $_POST['category'];
-                        
-                        $sql_post = "SELECT * FROM designspeciality WHERE designCategoryID='$CatID'";
-                        $result_post= mysqli_query($connection, $sql_post);
-                        while ($row = mysqli_fetch_assoc($result_post)){
-                            //img + brand name
-                            $sql_post2="SELECT * FROM designer WHERE id='" .$row['designerID'] ."'";
-                            $result_post2= mysqli_query($connection, $sql_post2);
-                            while($row2= mysqli_fetch_assoc($result_post2)){
-                            //<img src="images/' . $row2['logoImgFileName'] . '" alt="' . $row2['brandName'] . '"> <br>' . $row2['brandName'] . '</td>'
-                            echo '<tr><td> <a href="DesignPortoflioProject.php?id=' . $row2['id'] . '"> <img src="images/' . $row2['logoImgFileName'] . '" alt="' . $row2['brandName'] . '"> <br>' . $row2['brandName'] . '</a></td>';                            
-                            //Specialty
-                            $sql_post3 = "SELECT * FROM designspeciality WHERE designerID='" .$row['designerID']."'";
-                            $result_post3= mysqli_query($connection, $sql_post3);
-                            $CAT = "";
-                            echo "<td>";
-                            $firstCategory = true;
-                            while ($row3= mysqli_fetch_assoc($result_post3)) {
-                                $sql4= "SELECT category FROM designcategory WHERE id='". $row3['designCategoryID']."'";
-                                $result4= mysqli_query($connection, $sql4);
-                                if($row4= mysqli_fetch_assoc($result4)){
-                                    if ($firstCategory) {
-                                    $CAT .= $row4['category'];
-                                    $firstCategory = false;
-                                } else {
-                                    $CAT .= ', ' . $row4['category'];
-                                }
-                                }
-                            }
-                            echo $CAT;
-                            echo '</td>';
-                            //The request design consultation link is a code-generated link to the request design 
-                            //consultation page for the corresponding designer:
-                            echo "<td> <a href= RequestDesignConsultation.php?DesignerID=" .$row['designerID'] ."> Request Design Consultation</a> </td>";////Request Design Consultation
-                            echo '</tr>';
-                        }
-                        }
-                    }
-                    ?>
-
-                </table>            
-                
-        <!-- Previous Design Consultation Requests for specific client ID (TABLE): -->
-        <table>
+    <table id="designersTable">
+        <caption>Interior Designers</caption>
+        <tr>
+            <th>Designer</th>
+            <th>Specialty</th>
+            <th style="border: none;" id="noBorder"></th>
+        </tr>
+    </table>
+    
+    
+    <table>
                 <caption style="margin-top: 1em;">Previous Design Consultation Requests</caption>
                 <tr>
                     <th>Designer</th>
@@ -286,8 +155,45 @@
             
             ?>
             </table>
-          </main>
-          
+</main>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetchDesigners(); // Load all designers on page load
+});
+
+function fetchDesigners() {
+    var categoryId = document.getElementById('categorySelect').value;
+    console.log("Fetching designers for category:", categoryId); // Debug: Log category ID
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'getDesigners.php?category=' + categoryId, true);
+    xhr.onload = function () {
+        if (this.status == 200) {
+            console.log("Response received:", this.responseText); // Debug: Log response
+            try {
+                var designers = JSON.parse(this.responseText);
+                var output = '<tr><th>Designer</th><th>Specialty</th><th></th></tr>';
+                designers.forEach(function (designer) {
+                    output += '<tr>' +
+                        '<td><a href="DesignPortfolioProject.php?id=' + designer.id + '"><img src="' + designer.logoImgFileName + '" alt="' + designer.brandName + '"><br>' + designer.brandName + '</a></td>' +
+                        '<td>' + designer.category + '</td>' +
+                        '<td><a href="RequestDesignConsultation.php?DesignerID=' + designer.id + '">Request Design Consultation</a></td>' +
+                        '</tr>';
+                });
+                document.getElementById('designersTable').innerHTML = output;
+            } catch (e) {
+                console.error("Error parsing JSON:", e); // Debug: Log JSON parsing error
+            }
+        } else {
+            console.error("Failed to fetch designers:", this.status); // Debug: Log HTTP error
+        }
+    };
+    xhr.onerror = function () {
+        console.error("Request failed"); // Debug: Log network error
+    };
+    xhr.send();
+}
+</script>         
           <footer>
       <section id="footer">
         <div class="main-footer">
@@ -366,7 +272,7 @@
           <img src="images/heart.png" alt="love" width="15" height="15"> in
           KSU
         </p>
-      </section>
+      </section>             
     </footer>
       </body>
           
