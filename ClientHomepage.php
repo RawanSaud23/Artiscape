@@ -175,7 +175,7 @@ function fetchDesigners() {
                 var output = '<tr><th>Designer</th><th>Specialty</th><th></th></tr>';
                 designers.forEach(function (designer) {
                     output += '<tr>' +
-                        '<td><a href="DesignPortfolioProject.php?id=' + designer.id + '"><img src="' + designer.logoImgFileName + '" alt="' + designer.brandName + '"><br>' + designer.brandName + '</a></td>' +
+                        '<td><a href="DesignPortoflioProject.php?id=' + designer.id + '"><img src="' + designer.logoImgFileName + '" alt="' + designer.brandName + '"><br>' + designer.brandName + '</a></td>' +
                         '<td>' + designer.category + '</td>' +
                         '<td><a href="RequestDesignConsultation.php?DesignerID=' + designer.id + '">Request Design Consultation</a></td>' +
                         '</tr>';

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="el">
-<head>
+    <head>
     <meta charset="utf-8">
     <title>Designer homepage</title>
     <link rel="stylesheet" href="ArtiScape.css">
@@ -47,6 +47,79 @@
             margin-right: 1em;
         }
     </style>
+   
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script>
+$(document).ready(function() {
+    // Attach a click event handler to the delete links
+    $(document).on('click', '.delete-link', function(e) {
+        e.preventDefault();
+        var projectId = $(this).data('project-id');
+
+        if (confirm("Are you sure you want to delete this project?")) {
+            // Send an AJAX request to the server to delete the project
+            $.ajax({
+                url: 'PDelete.php',
+                type: 'POST',
+                data: { projectId: projectId },
+                success: function(response) {
+                    // If the deletion is successful, remove the table row from the DOM
+                    if (response === 'true') {
+                        var row = $('#row_' + projectId);
+                        if (row.length > 0) {
+                            row.remove();
+                        }
+                    } else {
+                        console.log('Failed to delete the project.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle error if delete request fails
+                    console.log(error);
+                }
+            });
+        }
+    });
+});
+</script>
+    
+<script>
+  $(document).ready(function() {
+    // Attach a click event handler to the decline links
+    $(document).on('click', '.decline-link', function(e) {
+        e.preventDefault();
+        var requestId = $(this).data('request-id');
+        var row = $(this).closest('tr');
+
+        if (confirm("Are you sure you want to decline this consultation request?")) {
+            // Send an AJAX request to the server to decline the request
+            $.ajax({
+                url: 'CUpdate.php',
+                type: 'POST',
+                data: { requestId: requestId },
+                success: function(response) {
+                    // If the decline operation is successful, remove the table row from the DOM
+                    if (response === 'true') {
+                        row.remove();
+                    } else {
+                        console.log('Failed to decline the request.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle error if decline request fails
+                    console.log(error);
+                }
+            });
+        }
+    });
+});  
+
+    
+ </script>
+    
+ 
+    
+    
 </head>
 
 <body>
@@ -119,7 +192,7 @@
         $sql3 = "SELECT * FROM designportfolioproject WHERE designerID ='$Sid'";
         $result3 = mysqli_query($connection, $sql3);
         while ($row3 = mysqli_fetch_assoc($result3)) {
-            echo "<tr>";
+          echo "<tr id='row_" . $row3['id'] . "'>";
             echo "<td>" . $row3['projectName'] . "</td>";
             echo "<td><img src='images/" . $row3['projectImgFileName'] . "'></td>";
             $sql4 = "SELECT * FROM DesignCategory WHERE id=" . $row3['designCategoryID'];
@@ -139,7 +212,7 @@
 
             echo "<td>" . $row3['description'] . "</td>";
             echo '<td><a href="updatepage.php?project_id=' . $row3['id'] . '">Edit</a></td>';
-            echo "<td class='hover'><a href='PDelete.php?project_id=" . $row3['id'] . "'>Delete</a></td>";
+            echo "<td class='hover'><a href='#' class='delete-link' data-project-id='" . $row3['id'] . "'>Delete</a></td>";
             echo "</tr>";
         }
 
@@ -161,8 +234,8 @@ $result5 = mysqli_query($connection, $sql5);
 
 if (mysqli_num_rows($result5) > 0) {
     while ($row5 = mysqli_fetch_assoc($result5)) {
-        echo '<tr>';
-        
+        echo "<tr id='row_" . $row5['id'] . "'>";
+
         // Fetch client details
         $sql4 = "SELECT * FROM client WHERE id =" . $row5['clientID'];
         $result4 = mysqli_query($connection, $sql4);
@@ -186,8 +259,7 @@ if (mysqli_num_rows($result5) > 0) {
         echo '<td>' . $row5['colorPreferences'] . '</td>';
         echo '<td>' . $row5['date'] . '</td>';
         echo '<td><a href="Consultationpage.php?id=' . $row5['id'] . '">Provide Consultation</a></td>';
-        echo '<td><a href="CUpdate.php?updatedid=' . $row5['id'] . '">Decline Consultation</a></td>';
-        echo '</tr>';
+        echo "<td><a href='#' class='decline-link' data-request-id='" . $row5['id'] . "'>Decline Consultation</a></td>";        echo '</tr>';
     }
 } else {
     echo '<tr><td colspan="7">No Design Consultation Requests found.</td></tr>';
@@ -197,6 +269,7 @@ echo '</table>';
 
     }
     ?>
+    
 </main>
 
 <footer>
